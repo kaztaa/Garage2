@@ -170,9 +170,16 @@ namespace Garage2.Controllers
 
         public async Task<IActionResult> Search(string searchField)
         {
-            var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField).ToList();
+            if (!string.IsNullOrEmpty(searchField))
+            {
+                var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField);
 
-            return View("Index", results);
+                return View("Index", await results.ToListAsync());
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }

@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Garage 2.0</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Park a vehicle</a>
 </p>
 <table class="table">
     <thead>
@@ -19,20 +19,24 @@
                 @Html.DisplayNameFor(model => model.RegistrationNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
+@*                 @Html.DisplayNameFor(model => model.Color)
+ *@            </th>
             <th>
-                @Html.DisplayNameFor(model => model.Make)
-            </th>
+@*                 @Html.DisplayNameFor(model => model.Make)
+ *@            </th>
             <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
+@*                 @Html.DisplayNameFor(model => model.Model)
+ *@            </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumberOfWheels)
-            </th>
+@*                 @Html.DisplayNameFor(model => model.NumberOfWheels)
+ *@            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ArrivalTime)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkedDuration)
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -46,24 +50,27 @@
                 @Html.DisplayFor(modelItem => item.RegistrationNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
+@*                 @Html.DisplayFor(modelItem => item.Color)
+ *@            </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Make)
-            </td>
+@*                 @Html.DisplayFor(modelItem => item.Make)
+ *@            </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
+@*                 @Html.DisplayFor(modelItem => item.Model)
+ *@            </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NumberOfWheels)
-            </td>
+@*                 @Html.DisplayFor(modelItem => item.NumberOfWheels)
+ *@            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ArrivalTime)
-            </td>
+               </td>
+            <td>@Html.DisplayFor(modelItem => item.ParkedDuration)
+               </td>
+
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+@*                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+ *@                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Check-out</a>
             </td>
         </tr>
 }

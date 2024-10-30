@@ -11,5 +11,14 @@
         public int NumberOfWheels { get; set; }
         public DateTime ArrivalTime { get; set; }
 
+        public string ParkedDuration
+        {
+            get
+            {
+                var duration = DateTime.Now - ArrivalTime;
+                return $"{duration.Hours} Hours, {duration.Minutes} minutes";
+            }
+        }
+
     }
 }

@@ -153,5 +153,19 @@ namespace Garage2.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> OverviewIndex()
+        {
+            IEnumerable<ParkedVehiclesViewModel> vehicles = _context.ParkedVehicle.ToList().Select(e => new ParkedVehiclesViewModel
+            {
+                Id = e.Id,
+                VehicleType = e.VehicleType,
+                RegistrationNumber = e.RegistrationNumber,
+                ArrivalTime = e.ArrivalTime,
+                ParkedTime = DateTime.Now.Subtract(e.ArrivalTime).TotalMinutes
+            });
+
+            return View(vehicles);
+        }
     }
 }

@@ -8,6 +8,12 @@
 
 <p>
     <a asp-action="Create">Park a vehicle</a>
+    <form asp-action="Search">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="searchField" placeholder="Search by registration number..." />
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </form>
 </p>
 <table class="table">
     <thead>

@@ -164,5 +164,19 @@ namespace Garage2.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> Search(string searchField)
+        {
+            if (!string.IsNullOrEmpty(searchField))
+            {
+                var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField);
+
+                return View("Index", await results.ToListAsync());
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }

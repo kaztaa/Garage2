@@ -4,6 +4,7 @@ using Garage2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2.Migrations
 {
     [DbContext(typeof(Garage2Context))]
-    partial class Garage2ContextModelSnapshot : ModelSnapshot
+    [Migration("20241030095915_AddAdditionalParkedVehicleData")]
+    partial class AddAdditionalParkedVehicleData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 1,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3010),
+                            ArrivalTime = new DateTime(2024, 10, 30, 8, 59, 15, 368, DateTimeKind.Local).AddTicks(5828),
                             Color = "Blue",
                             Make = "Toyota",
                             Model = "Corolla",
@@ -75,7 +78,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 2,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3074),
+                            ArrivalTime = new DateTime(2024, 10, 30, 8, 59, 15, 368, DateTimeKind.Local).AddTicks(5880),
                             Color = "Green",
                             Make = "Hundai",
                             Model = "i3",
@@ -86,7 +89,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 3,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3079),
+                            ArrivalTime = new DateTime(2024, 10, 30, 8, 59, 15, 368, DateTimeKind.Local).AddTicks(5882),
                             Color = "Balck",
                             Make = "BMW",
                             Model = "M3",
@@ -97,7 +100,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 4,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3083),
+                            ArrivalTime = new DateTime(2024, 10, 30, 8, 59, 15, 368, DateTimeKind.Local).AddTicks(5885),
                             Color = "Red",
                             Make = "Honda",
                             Model = "Goldwing",
@@ -108,7 +111,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 5,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3087),
+                            ArrivalTime = new DateTime(2024, 10, 30, 8, 59, 15, 368, DateTimeKind.Local).AddTicks(5888),
                             Color = "Green",
                             Make = "Yamaha",
                             Model = "R1",

@@ -4,6 +4,7 @@ using Garage2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2.Migrations
 {
     [DbContext(typeof(Garage2Context))]
-    partial class Garage2ContextModelSnapshot : ModelSnapshot
+    [Migration("20241030095222_SeedParkedVehicleData")]
+    partial class SeedParkedVehicleData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 1,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3010),
+                            ArrivalTime = new DateTime(2024, 10, 30, 8, 52, 22, 23, DateTimeKind.Local).AddTicks(1211),
                             Color = "Blue",
                             Make = "Toyota",
                             Model = "Corolla",
@@ -75,7 +78,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 2,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3074),
+                            ArrivalTime = new DateTime(2024, 10, 30, 8, 52, 22, 23, DateTimeKind.Local).AddTicks(1263),
                             Color = "Green",
                             Make = "Hundai",
                             Model = "i3",
@@ -86,35 +89,13 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 3,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3079),
+                            ArrivalTime = new DateTime(2024, 10, 30, 8, 52, 22, 23, DateTimeKind.Local).AddTicks(1300),
                             Color = "Balck",
                             Make = "BMW",
                             Model = "M3",
                             NumberOfWheels = 4,
                             RegistrationNumber = "ERR134",
                             VehicleType = "Car"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3083),
-                            Color = "Red",
-                            Make = "Honda",
-                            Model = "Goldwing",
-                            NumberOfWheels = 4,
-                            RegistrationNumber = "HFF577",
-                            VehicleType = "Motorcycle"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ArrivalTime = new DateTime(2024, 10, 30, 9, 2, 1, 934, DateTimeKind.Local).AddTicks(3087),
-                            Color = "Green",
-                            Make = "Yamaha",
-                            Model = "R1",
-                            NumberOfWheels = 4,
-                            RegistrationNumber = "OOP123",
-                            VehicleType = "Motorcycle"
                         });
                 });
 #pragma warning restore 612, 618

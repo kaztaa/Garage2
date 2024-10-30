@@ -154,7 +154,7 @@ namespace Garage2.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> OverviewIndex()
+        /*public async Task<IActionResult> OverviewIndex()
         {
             IEnumerable<ParkedVehiclesViewModel> vehicles = _context.ParkedVehicle.ToList().Select(e => new ParkedVehiclesViewModel
             {
@@ -166,6 +166,13 @@ namespace Garage2.Controllers
             });
 
             return View(vehicles);
+        }*/
+
+        public async Task<IActionResult> Search(string searchField)
+        {
+            var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField).ToList();
+
+            return View("Index", results);
         }
     }
 }

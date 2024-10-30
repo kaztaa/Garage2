@@ -6,6 +6,6 @@
         public string VehicleType { get; set; }
         public string RegistrationNumber { get; set; }
         public DateTime ArrivalTime { get; set; }
-        public double ParkedTime { get; set; }
+        public string ParkedDuration { get; set; }
     }
 }

@@ -162,7 +162,7 @@ namespace Garage2.Controllers
                 VehicleType = e.VehicleType,
                 RegistrationNumber = e.RegistrationNumber,
                 ArrivalTime = e.ArrivalTime,
-                ParkedTime = DateTime.Now.Subtract(e.ArrivalTime).TotalMinutes
+                ParkedDuration = e.ParkedDuration
             });
 
             return View(vehicles);

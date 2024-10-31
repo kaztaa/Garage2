@@ -171,7 +171,7 @@ namespace Garage2.Controllers
             {
                 if (type == 1)
                 {
-                    var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField);
+                    var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber.Contains(searchField));
 
                     return View("Index", await results.ToListAsync());
                 }

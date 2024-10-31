@@ -22,6 +22,8 @@ namespace Garage2.Models
         public int NumberOfWheels { get; set; }
         public DateTime ArrivalTime { get; set; } = DateTime.Now;
 
+        public DateTime? CheckoutTime {  get; set; }
+
         public string ParkedDuration
         {
             get

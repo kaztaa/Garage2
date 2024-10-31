@@ -20,13 +20,35 @@ namespace Garage2.Controllers
         }
 
         // GET: ParkedVehicles
-        public async Task<IActionResult> Index(string sortBy)
+        public async Task<IActionResult> Index(string searchField, int type, string sortBy)
         {
             var vehicles = _context.ParkedVehicle.ToList();
             ViewData["TypeSortParam"] = sortBy == "type_desc" ? "type_asc" : "type_desc";
             ViewData["RegNrSortParam"] = sortBy == "regNr_desc" ? "regNr_asc" : "regNr_desc";
             ViewData["ArrivalTimeSortParam"] = sortBy == "at_desc" ? "at_asc" : "at_desc";
             ViewData["ParkedDurationSortParam"] = sortBy == "pd_desc" ? "pd_asc" : "pd_desc";
+
+            if (!string.IsNullOrEmpty(searchField))
+            {
+                switch (type)
+                {
+                    case 1:
+                        vehicles = vehicles.Where(e => e.RegistrationNumber.ToUpper().Contains(searchField.ToUpper())).ToList();
+                        break;
+                    case 2:
+                        vehicles = vehicles.Where(e => e.VehicleType.ToUpper() == searchField.ToUpper()).ToList();
+                        break;
+                    case 3:
+                        vehicles = vehicles.Where(e => e.Color.ToUpper() == searchField.ToUpper()).ToList();
+                        break;
+                    case 4:
+                        vehicles = vehicles.Where(e => e.Make.ToUpper() == searchField.ToUpper()).ToList();
+                        break;
+                    case 5:
+                        vehicles = vehicles.Where(e => e.Model.ToUpper() == searchField.ToUpper()).ToList();
+                        break;
+                }
+            }
 
             switch (sortBy)
             {
@@ -56,7 +78,7 @@ namespace Garage2.Controllers
                     break;
             }
 
-            return View("Index", vehicles);
+            return View(vehicles);
         }
 
         // GET: ParkedVehicles/Details/5
@@ -234,52 +256,6 @@ namespace Garage2.Controllers
 		private bool ParkedVehicleExists(int id)
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
-        }
-
-        public async Task<IActionResult> Search(string searchField, int type)
-        {
-            
-            if (!string.IsNullOrEmpty(searchField))
-            {
-                if (type == 1)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber.Contains(searchField));
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else if (type == 2)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.VehicleType == searchField);
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else if (type == 3)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.Color == searchField);
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else if (type == 4)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.Make == searchField);
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else if (type == 5)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.Model == searchField);
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-            else
-            {
-                return RedirectToAction(nameof(Index));
-            }
         }
         public async Task<IActionResult> ParkingConfirmation(int id)
 		{

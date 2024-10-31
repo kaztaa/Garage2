@@ -12,7 +12,6 @@
 
         // DateTime.Now = som timestamp, vid parkering ska ArrivalTime använda nuvarande tid
         public DateTime ArrivalTime { get; set; } = DateTime.Now;
-        public DateTime? CheckoutTime {  get; set; }
 
         public string ParkedDuration
         {

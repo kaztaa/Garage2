@@ -65,9 +65,11 @@ namespace Garage2.Controllers
             {
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(parkedVehicle);
+                //return RedirectToAction(nameof(Index));
+				return RedirectToAction("ParkingConfirmation", new { id = parkedVehicle.Id });
+
+			}
+			return View(parkedVehicle);
         }
 
         // GET: ParkedVehicles/Edit/5
@@ -178,5 +180,16 @@ namespace Garage2.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-    }
+		public async Task<IActionResult> ParkingConfirmation(int id)
+		{
+			var vehicle = await _context.ParkedVehicle.FindAsync(id);
+			if (vehicle == null)
+			{
+				return NotFound();
+			}
+
+			return View(vehicle); 
+		}
+
+	}
 }

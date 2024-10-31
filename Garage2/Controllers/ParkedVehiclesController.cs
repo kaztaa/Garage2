@@ -283,6 +283,44 @@ namespace Garage2.Controllers
 			return View("Receipt", receiptModel); 
 		}
 
+        public async Task<IActionResult> Sort(string sortBy)
+        {
+            var vehicles = _context.ParkedVehicle.ToList();
+            ViewData["TypeSortParam"] = sortBy == "type_desc" ? "type_asc" : "type_desc";
+            ViewData["RegNrSortParam"] = sortBy == "regNr_desc" ? "regNr_asc" : "regNr_desc";
+            ViewData["ArrivalTimeSortParam"] = sortBy == "at_desc" ? "at_asc" : "at_desc";
+            ViewData["ParkedDurationSortParam"] = sortBy == "pd_desc" ? "pd_asc" : "pd_desc";
 
+            switch (sortBy)
+            {
+                case "type_desc":
+                    vehicles = vehicles.OrderByDescending(e => e.VehicleType).ToList();
+                    break;
+                case "type_asc":
+                    vehicles = vehicles.OrderBy(e => e.VehicleType).ToList();
+                    break;
+                case "regNr_desc":
+                    vehicles = vehicles.OrderByDescending(e => e.RegistrationNumber).ToList();
+                    break;
+                case "regNr_asc":
+                    vehicles = vehicles.OrderBy(e => e.RegistrationNumber).ToList();
+                    break;
+                case "at_desc":
+                    vehicles = vehicles.OrderByDescending(e => e.ArrivalTime).ToList();
+                    break;
+                case "at_asc":
+                    vehicles = vehicles.OrderBy(e => e.ArrivalTime).ToList();
+                    break;
+                case "pt_desc":
+                    vehicles = vehicles.OrderByDescending(e => e.ParkedDuration).ToList();
+                    break;
+                case "pt_asc":
+                    vehicles = vehicles.OrderBy(e => e.ParkedDuration).ToList();
+                    break;
+            }
+            
+
+            return View("Index", vehicles);
+        }
 	}
 }

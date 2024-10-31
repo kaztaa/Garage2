@@ -25,9 +25,11 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Color)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
+        <dd class="col-sm-10 d-flex align-items-center">
+            <div style="width: 40px; height: 20px; background-color: @Model.Color;"></div>
+            <span class="ms-2">@Html.DisplayFor(model => model.Color)</span>
         </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Make)
         </dt>
@@ -51,6 +53,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ArrivalTime)
+        </dd>        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ParkedDuration)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ParkedDuration)
         </dd>
     </dl>
 </div>

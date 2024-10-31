@@ -23,7 +23,8 @@ namespace Garage2.Migrations
                     Make = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberOfWheels = table.Column<int>(type: "int", nullable: false),
-                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CheckoutTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

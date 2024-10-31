@@ -22,6 +22,11 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles
         public async Task<IActionResult> Index()
         {
+            // Filter out vehicles where CheckoutTime is not null
+            //var activeParkedVehicles = await _context.ParkedVehicle
+            //    .Where(v => v.CheckoutTime == null)
+            //    .ToListAsync();
+            //return View(activeParkedVehicles);
             return View(await _context.ParkedVehicle.ToListAsync());
         }
 
@@ -46,6 +51,14 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles/Create
         public IActionResult Create()
         {
+            // Get the enum values for VehicleType and create a SelectList
+            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Value = v.ToString(),
+                    Text = v.ToString()
+                });
             return View();
         }
 
@@ -58,12 +71,36 @@ namespace Garage2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(parkedVehicle);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Check if a vehicle with the same RegistrationNumber already exists
+                var existingVehicle = await _context.ParkedVehicle
+                    .FirstOrDefaultAsync(v => v.RegistrationNumber == parkedVehicle.RegistrationNumber);
+
+                if (existingVehicle != null)
+                {
+                    // Add an error to the ModelState if the registration number already exists
+                    ModelState.AddModelError("RegistrationNumber", "This registration number already exists.");
+                }
+
+                if (ModelState.IsValid) // Re-check if the model state is valid after adding the error
+                {
+                    _context.Add(parkedVehicle);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
+            // Repopulate VehicleTypes for the dropdown in case of validation errors
+            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Value = v.ToString(),
+                    Text = v.ToString()
+                });
+
             return View(parkedVehicle);
         }
+
 
         // GET: ParkedVehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -143,6 +180,12 @@ namespace Garage2.Controllers
             if (parkedVehicle != null)
             {
                 _context.ParkedVehicle.Remove(parkedVehicle);
+
+                // Set the CheckoutTime to the current timestamp instead of deleting
+                //parkedVehicle.CheckoutTime = DateTime.Now;
+
+                // Save the updated record to the database
+                //_context.ParkedVehicle.Update(parkedVehicle);
             }
 
             await _context.SaveChangesAsync();
@@ -153,5 +196,61 @@ namespace Garage2.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
-    }
+
+        public async Task<IActionResult> Search(string searchField, int type)
+        {
+            if (!string.IsNullOrEmpty(searchField))
+            {
+                if (type == 1)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber.Contains(searchField));
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 2)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.VehicleType == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 3)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Color == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 4)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Make == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 5)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Model == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+        public async Task<IActionResult> ParkingConfirmation(int id)
+		{
+			var vehicle = await _context.ParkedVehicle.FindAsync(id);
+			if (vehicle == null)
+			{
+				return NotFound();
+			}
+
+			return View(vehicle); 
+		}
+
+	}
 }

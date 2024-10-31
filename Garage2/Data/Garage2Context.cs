@@ -27,8 +27,8 @@ namespace Garage2.Data
              new ParkedVehicle { Id = 1, VehicleType = "Car", RegistrationNumber = "ABC123", Color = "Blue", Make = "Toyota", Model = "Corolla", NumberOfWheels = 4, ArrivalTime = DateTime.Now.AddHours(-2) },
              new ParkedVehicle { Id = 2, VehicleType = "Car", RegistrationNumber = "ERT234", Color = "Green", Make = "Hundai", Model = "i3", NumberOfWheels = 4, ArrivalTime = DateTime.Now.AddHours(-2) },
              new ParkedVehicle { Id = 3, VehicleType = "Car", RegistrationNumber = "ERR134", Color = "Balck", Make = "BMW", Model = "M3", NumberOfWheels = 4, ArrivalTime = DateTime.Now.AddHours(-2) },
-             new ParkedVehicle { Id = 4, VehicleType = "Motorcycle", RegistrationNumber = "HFF577", Color = "Red", Make = "Honda", Model = "Goldwing", NumberOfWheels = 4, ArrivalTime = DateTime.Now.AddHours(-2) },
-             new ParkedVehicle { Id = 5, VehicleType = "Motorcycle", RegistrationNumber = "OOP123", Color = "Green", Make = "Yamaha", Model = "R1", NumberOfWheels = 4, ArrivalTime = DateTime.Now.AddHours(-2) }
+             new ParkedVehicle { Id = 4, VehicleType = "Motorcycle", RegistrationNumber = "HFF577", Color = "Red", Make = "Honda", Model = "Goldwing", NumberOfWheels = 2, ArrivalTime = DateTime.Now.AddHours(-2) },
+             new ParkedVehicle { Id = 5, VehicleType = "Motorcycle", RegistrationNumber = "OOP123", Color = "Green", Make = "Yamaha", Model = "R1", NumberOfWheels = 2, ArrivalTime = DateTime.Now.AddHours(-2) }
 
              );
         }

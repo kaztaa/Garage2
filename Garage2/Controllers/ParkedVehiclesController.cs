@@ -51,6 +51,14 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles/Create
         public IActionResult Create()
         {
+            // Get the enum values for VehicleType and create a SelectList
+            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Value = v.ToString(),
+                    Text = v.ToString()
+                });
             return View();
         }
 
@@ -63,12 +71,36 @@ namespace Garage2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(parkedVehicle);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Check if a vehicle with the same RegistrationNumber already exists
+                var existingVehicle = await _context.ParkedVehicle
+                    .FirstOrDefaultAsync(v => v.RegistrationNumber == parkedVehicle.RegistrationNumber);
+
+                if (existingVehicle != null)
+                {
+                    // Add an error to the ModelState if the registration number already exists
+                    ModelState.AddModelError("RegistrationNumber", "This registration number already exists.");
+                }
+
+                if (ModelState.IsValid) // Re-check if the model state is valid after adding the error
+                {
+                    _context.Add(parkedVehicle);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
+            // Repopulate VehicleTypes for the dropdown in case of validation errors
+            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Value = v.ToString(),
+                    Text = v.ToString()
+                });
+
             return View(parkedVehicle);
         }
+
 
         // GET: ParkedVehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)

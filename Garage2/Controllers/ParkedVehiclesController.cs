@@ -22,7 +22,12 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ParkedVehicle.ToListAsync());
+            // Filter out vehicles where CheckoutTime is not null
+            var activeParkedVehicles = await _context.ParkedVehicle
+                .Where(v => v.CheckoutTime == null)
+                .ToListAsync();
+            return View(activeParkedVehicles);
+            //return View(await _context.ParkedVehicle.ToListAsync());
         }
 
         // GET: ParkedVehicles/Details/5
@@ -142,7 +147,13 @@ namespace Garage2.Controllers
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             if (parkedVehicle != null)
             {
-                _context.ParkedVehicle.Remove(parkedVehicle);
+                //_context.ParkedVehicle.Remove(parkedVehicle);
+
+                // Set the CheckoutTime to the current timestamp instead of deleting
+                parkedVehicle.CheckoutTime = DateTime.Now;
+
+                // Save the updated record to the database
+                _context.ParkedVehicle.Update(parkedVehicle);
             }
 
             await _context.SaveChangesAsync();
@@ -153,20 +164,6 @@ namespace Garage2.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
-
-        /*public async Task<IActionResult> OverviewIndex()
-        {
-            IEnumerable<ParkedVehiclesViewModel> vehicles = _context.ParkedVehicle.ToList().Select(e => new ParkedVehiclesViewModel
-            {
-                Id = e.Id,
-                VehicleType = e.VehicleType,
-                RegistrationNumber = e.RegistrationNumber,
-                ArrivalTime = e.ArrivalTime,
-                ParkedDuration = e.ParkedDuration
-            });
-
-            return View(vehicles);
-        }*/
 
         public async Task<IActionResult> Search(string searchField)
         {

@@ -42,6 +42,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ParkedDuration)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckoutTime)
+            </th>
 
             <th></th>
         </tr>
@@ -74,9 +77,12 @@
                </td>
 
             <td>
-@*                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
- *@                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Check-out</a>
+                @Html.DisplayFor(ModelItem => item.CheckoutTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Checkout</a>
             </td>
         </tr>
 }

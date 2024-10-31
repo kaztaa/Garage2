@@ -167,6 +167,7 @@ namespace Garage2.Controllers
 
         public async Task<IActionResult> Search(string searchField, int type)
         {
+            
             if (!string.IsNullOrEmpty(searchField))
             {
                 if (type == 1)

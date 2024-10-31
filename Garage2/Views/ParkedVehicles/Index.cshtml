@@ -10,8 +10,19 @@
     <a asp-action="Create">Park a vehicle</a>
     <form asp-action="Search">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" name="searchField" placeholder="Search by registration number..." />
-            <button class="btn btn-outline-secondary" type="submit">Search</button>
+            <input type="text" class="form-control" name="searchField" placeholder="Search..." />
+            <div class="input-group-append">
+                <select class="form-control" name="type">
+                    <option value="1">Registration Number</option>
+                    <option value="2">Vehicle Type</option>
+                    <option value="3">Color</option>
+                    <option value="4">Make</option>
+                    <option value="5">Model</option>
+                </select>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
         </div>
     </form>
 </p>

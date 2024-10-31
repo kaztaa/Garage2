@@ -167,20 +167,51 @@ namespace Garage2.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> Search(string searchField)
+        public async Task<IActionResult> Search(string searchField, int type)
         {
             if (!string.IsNullOrEmpty(searchField))
             {
-                var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField);
+                if (type == 1)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField);
 
-                return View("Index", await results.ToListAsync());
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 2)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.VehicleType == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 3)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Color == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 4)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Make == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 5)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Model == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             else
             {
                 return RedirectToAction(nameof(Index));
             }
         }
-		public async Task<IActionResult> ParkingConfirmation(int id)
+        public async Task<IActionResult> ParkingConfirmation(int id)
 		{
 			var vehicle = await _context.ParkedVehicle.FindAsync(id);
 			if (vehicle == null)

@@ -181,6 +181,24 @@ namespace Garage2.Controllers
 
                     return View("Index", await results.ToListAsync());
                 }
+                else if (type ==3)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Color == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 4)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Make == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 5)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Model == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
                 else
                 {
                     return RedirectToAction(nameof(Index));

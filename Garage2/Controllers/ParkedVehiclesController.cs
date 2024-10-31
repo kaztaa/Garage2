@@ -44,8 +44,8 @@ namespace Garage2.Controllers
             return View(parkedVehicle);
         }
 
-        // GET: ParkedVehicles/Create
-        public IActionResult Create()
+        // GET: ParkedVehicles/CheckIn
+        public IActionResult CheckIn()
         {
             // Get the enum values for VehicleType and create a SelectList
             ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
@@ -58,12 +58,12 @@ namespace Garage2.Controllers
             return View();
         }
 
-        // POST: ParkedVehicles/Create
+        // POST: ParkedVehicles/CheckIn
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,VehicleType,RegistrationNumber,Color,Make,Model,NumberOfWheels,ArrivalTime")] ParkedVehicle parkedVehicle)
+        public async Task<IActionResult> CheckIn([Bind("Id,VehicleType,RegistrationNumber,Color,Make,Model,NumberOfWheels,ArrivalTime")] ParkedVehicle parkedVehicle)
         {
             if (ModelState.IsValid)
             {
@@ -149,8 +149,8 @@ namespace Garage2.Controllers
             return View(parkedVehicle);
         }
 
-        // GET: ParkedVehicles/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: ParkedVehicles/CheckOut/5
+        public async Task<IActionResult> CheckOut(int? id)
         {
             if (id == null)
             {
@@ -168,9 +168,9 @@ namespace Garage2.Controllers
         }
 
 
-		[HttpPost, ActionName("Delete")]
+		[HttpPost, ActionName("CheckOut")]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteConfirmed(int id)
+		public async Task<IActionResult> CheckOutConfirmed(int id)
 		{
 			var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
 			if (parkedVehicle == null)

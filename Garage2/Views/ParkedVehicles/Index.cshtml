@@ -7,7 +7,7 @@
 <h1>Garage 2.0</h1>
 
 <p>
-    <a asp-action="Create">Park a vehicle</a>
+    <a asp-action="CheckIn">Park a vehicle</a>
     <form asp-action="Search">
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="searchField" placeholder="Search..." />
@@ -61,7 +61,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Checkout</a>
+                <a asp-action="CheckOut" asp-route-id="@item.Id">Checkout</a>
             </td>
         </tr>
 }

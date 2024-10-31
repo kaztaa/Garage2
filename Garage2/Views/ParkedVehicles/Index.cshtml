@@ -30,22 +30,22 @@
     <thead>
         <tr>
             <th>
-                <a class="text-dark" asp-action="Sort" asp-route-sortBy=@ViewData["TypeSortParam"]>
+                <a class="text-dark" asp-action="Index" asp-route-sortBy=@ViewData["TypeSortParam"]>
                     @Html.DisplayNameFor(model => model.VehicleType)
                 </a>
             </th>
             <th>
-                <a class="text-dark" asp-action="Sort" asp-route-sortBy=@ViewData["RegNrSortParam"]>
+                <a class="text-dark" asp-action="Index" asp-route-sortBy=@ViewData["RegNrSortParam"]>
                     @Html.DisplayNameFor(model => model.RegistrationNumber)
                 </a>
             </th>
             <th>
-                <a class="text-dark" asp-action="Sort" asp-route-sortBy=@ViewData["ArrivalTimeSortParam"]>
+                <a class="text-dark" asp-action="Index" asp-route-sortBy=@ViewData["ArrivalTimeSortParam"]>
                     @Html.DisplayNameFor(model => model.ArrivalTime)
                 </a>
             </th>
             <th>
-                <a class="text-dark" asp-action="Sort" asp-route-sortBy=@ViewData["ParkedDurationSortParam"]>
+                <a class="text-dark" asp-action="Index" asp-route-sortBy=@ViewData["ParkedDurationSortParam"]>
                     @Html.DisplayNameFor(model => model.ParkedDuration)
                 </a>
             </th>

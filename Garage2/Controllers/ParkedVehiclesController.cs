@@ -22,12 +22,8 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles
         public async Task<IActionResult> Index()
         {
-            // Filter out vehicles where CheckoutTime is not null
-            var activeParkedVehicles = await _context.ParkedVehicle
-                .Where(v => v.CheckoutTime == null)
-                .ToListAsync();
-            return View(activeParkedVehicles);
-            //return View(await _context.ParkedVehicle.ToListAsync());
+
+            return View(await _context.ParkedVehicle.ToListAsync());
         }
 
         // GET: ParkedVehicles/Details/5
@@ -51,6 +47,14 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles/Create
         public IActionResult Create()
         {
+            // Get the enum values for VehicleType and create a SelectList
+            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Value = v.ToString(),
+                    Text = v.ToString()
+                });
             return View();
         }
 
@@ -63,12 +67,36 @@ namespace Garage2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(parkedVehicle);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Check if a vehicle with the same RegistrationNumber already exists
+                var existingVehicle = await _context.ParkedVehicle
+                    .FirstOrDefaultAsync(v => v.RegistrationNumber == parkedVehicle.RegistrationNumber);
+
+                if (existingVehicle != null)
+                {
+                    // Add an error to the ModelState if the registration number already exists
+                    ModelState.AddModelError("RegistrationNumber", "This registration number already exists.");
+                }
+
+                if (ModelState.IsValid) // Re-check if the model state is valid after adding the error
+                {
+                    _context.Add(parkedVehicle);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
+            // Repopulate VehicleTypes for the dropdown in case of validation errors
+            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Value = v.ToString(),
+                    Text = v.ToString()
+                });
+
             return View(parkedVehicle);
         }
+
 
         // GET: ParkedVehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -139,28 +167,38 @@ namespace Garage2.Controllers
             return View(parkedVehicle);
         }
 
-        // POST: ParkedVehicles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
-            if (parkedVehicle != null)
-            {
-                //_context.ParkedVehicle.Remove(parkedVehicle);
 
-                // Set the CheckoutTime to the current timestamp instead of deleting
-                parkedVehicle.CheckoutTime = DateTime.Now;
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+			if (parkedVehicle == null)
+			{
+				return NotFound();
+			}
 
-                // Save the updated record to the database
-                _context.ParkedVehicle.Update(parkedVehicle);
-            }
+			var checkoutTime = DateTime.Now;
+			var parkingDuration = checkoutTime - parkedVehicle.ArrivalTime;
+			decimal pricePerHour = 10;
+			decimal cost = (decimal)Math.Ceiling(parkingDuration.TotalHours) * pricePerHour;
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+			var receipt = new Receipt
+			{
+				RegistrationNumber = parkedVehicle.RegistrationNumber,
+				ArrivalTime = parkedVehicle.ArrivalTime,
+				CheckoutTime = checkoutTime,
+				ParkingCost = cost
+			};
 
-        private bool ParkedVehicleExists(int id)
+			_context.ParkedVehicle.Remove(parkedVehicle);
+			await _context.SaveChangesAsync();
+
+			return View("Receipt", receipt);
+		}
+
+
+		private bool ParkedVehicleExists(int id)
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
@@ -182,7 +220,7 @@ namespace Garage2.Controllers
 
                     return View("Index", await results.ToListAsync());
                 }
-                else if (type ==3)
+                else if (type == 3)
                 {
                     var results = _context.ParkedVehicle.Where(e => e.Color == searchField);
 
@@ -210,5 +248,41 @@ namespace Garage2.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-    }
+        public async Task<IActionResult> ParkingConfirmation(int id)
+		{
+			var vehicle = await _context.ParkedVehicle.FindAsync(id);
+			if (vehicle == null)
+			{
+				return NotFound();
+			}
+
+			return View(vehicle); 
+		}
+
+		public async Task<IActionResult> Receipt(int id)
+		{
+			var vehicle = await _context.ParkedVehicle.FindAsync(id);
+			if (vehicle == null || vehicle.CheckoutTime == null)
+			{
+                return NotFound();
+                
+			}
+
+			var parkingDuration = vehicle.CheckoutTime.Value - vehicle.ArrivalTime;
+			decimal pricePerHour = 10;
+			decimal cost = (decimal)Math.Ceiling(parkingDuration.TotalHours) * pricePerHour;
+
+			var receiptModel = new Receipt
+			{
+				RegistrationNumber = vehicle.RegistrationNumber,
+				ArrivalTime = vehicle.ArrivalTime,
+				CheckoutTime = vehicle.CheckoutTime.Value,
+				ParkingCost = cost
+			};
+
+			return View("Receipt", receiptModel); 
+		}
+
+
+	}
 }

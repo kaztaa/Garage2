@@ -4,6 +4,7 @@ using Garage2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2.Migrations
 {
     [DbContext(typeof(Garage2Context))]
-    partial class Garage2ContextModelSnapshot : ModelSnapshot
+    [Migration("20241031083838_RemovedCheckoutField")]
+    partial class RemovedCheckoutField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,22 +36,17 @@ namespace Garage2.Migrations
                     b.Property<DateTime>("ArrivalTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("CheckoutTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Make")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumberOfWheels")
                         .HasColumnType("int");
@@ -69,7 +67,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 1,
-                            ArrivalTime = new DateTime(2024, 10, 31, 9, 34, 24, 34, DateTimeKind.Local).AddTicks(7878),
+                            ArrivalTime = new DateTime(2024, 10, 31, 7, 38, 37, 953, DateTimeKind.Local).AddTicks(2820),
                             Color = "Blue",
                             Make = "Toyota",
                             Model = "Corolla",
@@ -80,7 +78,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 2,
-                            ArrivalTime = new DateTime(2024, 10, 31, 9, 34, 24, 34, DateTimeKind.Local).AddTicks(7885),
+                            ArrivalTime = new DateTime(2024, 10, 31, 7, 38, 37, 953, DateTimeKind.Local).AddTicks(2826),
                             Color = "Green",
                             Make = "Hundai",
                             Model = "i3",
@@ -91,7 +89,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 3,
-                            ArrivalTime = new DateTime(2024, 10, 31, 9, 34, 24, 34, DateTimeKind.Local).AddTicks(7889),
+                            ArrivalTime = new DateTime(2024, 10, 31, 7, 38, 37, 953, DateTimeKind.Local).AddTicks(2830),
                             Color = "Balck",
                             Make = "BMW",
                             Model = "M3",
@@ -102,7 +100,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 4,
-                            ArrivalTime = new DateTime(2024, 10, 31, 9, 34, 24, 34, DateTimeKind.Local).AddTicks(7892),
+                            ArrivalTime = new DateTime(2024, 10, 31, 7, 38, 37, 953, DateTimeKind.Local).AddTicks(2833),
                             Color = "Red",
                             Make = "Honda",
                             Model = "Goldwing",
@@ -113,7 +111,7 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 5,
-                            ArrivalTime = new DateTime(2024, 10, 31, 9, 34, 24, 34, DateTimeKind.Local).AddTicks(7895),
+                            ArrivalTime = new DateTime(2024, 10, 31, 7, 38, 37, 953, DateTimeKind.Local).AddTicks(2837),
                             Color = "Green",
                             Make = "Yamaha",
                             Model = "R1",

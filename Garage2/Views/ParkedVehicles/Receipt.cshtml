@@ -1,0 +1,17 @@
+﻿@model Garage2.Models.Receipt
+
+@{
+    ViewData["Title"] = "Receipt";
+}
+<h2>Receipt</h2>
+
+<div>
+    <p><strong>Registration number:</strong> @Model.RegistrationNumber</p>
+    <p><strong>Arrival time:</strong> @Model.ArrivalTime.ToString("yyyy-MM-dd HH:mm")</p>
+    <p><strong>Checkout time:</strong> @Model.CheckoutTime</p>
+    <p><strong>Duration:</strong> @Model.ParkedDuration</p>
+    <p><strong>Cost:</strong> @Model.ParkingCost.ToString("C")</p>
+</div>
+
+<button onclick="window.print()" class="btn btn-primary">Print receipt</button>
+<a asp-action="Index" class="btn btn-secondary">Back to overview</a>

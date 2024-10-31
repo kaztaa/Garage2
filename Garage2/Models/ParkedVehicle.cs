@@ -33,5 +33,18 @@ namespace Garage2.Models
             }
         }
 
-    }
+		private const decimal PricePerHour = 10;
+
+		public decimal ParkingCost
+		{
+			get
+			{
+				if (ParkedDuration == null)
+					return 999;
+				var parkingDuration = DateTime.Now - ArrivalTime;
+				return (decimal)parkingDuration.TotalHours * PricePerHour;
+			}
+		}
+
+	}
 }

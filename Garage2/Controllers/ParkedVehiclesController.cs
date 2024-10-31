@@ -22,11 +22,7 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles
         public async Task<IActionResult> Index()
         {
-            // Filter out vehicles where CheckoutTime is not null
-            //var activeParkedVehicles = await _context.ParkedVehicle
-            //    .Where(v => v.CheckoutTime == null)
-            //    .ToListAsync();
-            //return View(activeParkedVehicles);
+
             return View(await _context.ParkedVehicle.ToListAsync());
         }
 
@@ -171,28 +167,38 @@ namespace Garage2.Controllers
             return View(parkedVehicle);
         }
 
-        // POST: ParkedVehicles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
-            if (parkedVehicle != null)
-            {
-                _context.ParkedVehicle.Remove(parkedVehicle);
 
-                // Set the CheckoutTime to the current timestamp instead of deleting
-                //parkedVehicle.CheckoutTime = DateTime.Now;
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+			if (parkedVehicle == null)
+			{
+				return NotFound();
+			}
 
-                // Save the updated record to the database
-                //_context.ParkedVehicle.Update(parkedVehicle);
-            }
+			var checkoutTime = DateTime.Now;
+			var parkingDuration = checkoutTime - parkedVehicle.ArrivalTime;
+			decimal pricePerHour = 10;
+			decimal cost = (decimal)Math.Ceiling(parkingDuration.TotalHours) * pricePerHour;
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+			var receipt = new Receipt
+			{
+				RegistrationNumber = parkedVehicle.RegistrationNumber,
+				ArrivalTime = parkedVehicle.ArrivalTime,
+				CheckoutTime = checkoutTime,
+				ParkingCost = cost
+			};
 
-        private bool ParkedVehicleExists(int id)
+			_context.ParkedVehicle.Remove(parkedVehicle);
+			await _context.SaveChangesAsync();
+
+			return View("Receipt", receipt);
+		}
+
+
+		private bool ParkedVehicleExists(int id)
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
@@ -251,6 +257,31 @@ namespace Garage2.Controllers
 
 			return View(vehicle); 
 		}
+
+		public async Task<IActionResult> Receipt(int id)
+		{
+			var vehicle = await _context.ParkedVehicle.FindAsync(id);
+			if (vehicle == null || vehicle.CheckoutTime == null)
+			{
+                return NotFound();
+                
+			}
+
+			var parkingDuration = vehicle.CheckoutTime.Value - vehicle.ArrivalTime;
+			decimal pricePerHour = 10;
+			decimal cost = (decimal)Math.Ceiling(parkingDuration.TotalHours) * pricePerHour;
+
+			var receiptModel = new Receipt
+			{
+				RegistrationNumber = vehicle.RegistrationNumber,
+				ArrivalTime = vehicle.ArrivalTime,
+				CheckoutTime = vehicle.CheckoutTime.Value,
+				ParkingCost = cost
+			};
+
+			return View("Receipt", receiptModel); 
+		}
+
 
 	}
 }

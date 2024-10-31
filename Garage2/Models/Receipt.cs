@@ -4,8 +4,9 @@
     {
         public string RegistrationNumber { get; set; }
         public DateTime ArrivalTime { get; set; }
-        public DateTime DepartureTime { get; set; }
-        public TimeSpan ParkingDuration => DepartureTime - ArrivalTime;
+        public DateTime CheckoutTime { get; set; }
+        public string ParkedDuration => $"{(int)(CheckoutTime - ArrivalTime).TotalHours} houes, {(CheckoutTime - ArrivalTime).Minutes} minutes";
+
         public decimal ParkingCost { get; set; }
     }
 }

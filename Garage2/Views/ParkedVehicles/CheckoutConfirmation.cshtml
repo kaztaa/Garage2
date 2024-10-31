@@ -1,0 +1,13 @@
+﻿@model Garage2.Models.ParkedVehicle
+
+<h2>Checkout confirmed</h2>
+
+<p>Vechicle with registration number <strong>@Model.RegistrationNumber</strong> har nu checkats ut.</p>
+<p><strong>Type:</strong> @Model.VehicleType</p>
+<p><strong>Arrival:</strong> @Model.ArrivalTime.ToString("yyyy-MM-dd HH:mm")</p>
+<p><strong>Duration:</strong> @Model.ParkedDuration</p>
+<p><strong>Checkout time:</strong> @Model.CheckoutTime?.ToString("yyyy-MM-dd HH:mm")</p>
+
+<a asp-action="Receipt" asp-route-id="@Model.Id" class="btn btn-primary">Visa Kvitto</a>
+
+<a asp-action="Index" class="btn btn-secondary">Tillbaka till Översikten</a>

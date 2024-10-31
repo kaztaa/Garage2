@@ -165,13 +165,26 @@ namespace Garage2.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> Search(string searchField)
+        public async Task<IActionResult> Search(string searchField, int type)
         {
             if (!string.IsNullOrEmpty(searchField))
             {
-                var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField);
+                if (type == 1)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber == searchField);
 
-                return View("Index", await results.ToListAsync());
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 2)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.VehicleType == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             else
             {

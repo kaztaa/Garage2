@@ -49,7 +49,7 @@ namespace Garage2.Controllers
                         vehicles = vehicles.Where(e => e.RegistrationNumber.ToUpper().Contains(searchField.ToUpper())).ToList();
                         break;
                     case 2:
-                        vehicles = vehicles.Where(e => e.VehicleType.ToUpper() == searchField.ToUpper()).ToList();
+                        vehicles = vehicles.Where(e => e.VehicleType.ToString().ToUpper() == searchField.ToUpper()).ToList();
                         break;
                     case 3:
                         vehicles = vehicles.Where(e => e.Color.ToUpper() == searchField.ToUpper()).ToList();

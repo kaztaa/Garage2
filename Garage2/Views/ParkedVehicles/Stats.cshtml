@@ -1,0 +1,20 @@
+﻿@model Garage2.Models.Stats
+
+@{
+    ViewData["Title"] = "Statistics";
+}
+<h2>Statistics</h2>
+
+<div>
+    <p><strong>Total:</strong> @Model.TotalVehicles</p>
+    <p><strong>Motorcycles:</strong> @Model.Motorcycles</p>
+    <p><strong>Cars:</strong> @Model.Cars</p>
+    <p><strong>Trucks:</strong> @Model.Trucks</p>
+    <p><strong>Buses:</strong> @Model.Buses</p>
+    <p><strong>Vans:</strong> @Model.Vans</p>
+    <p><strong>Bicycles:</strong> @Model.Bicycles</p>
+    <p><strong>Number of wheels:</strong> @Model.Wheels</p>
+    <p><strong>Revenue for current checkins:</strong> @Model.Revenue.ToString("C")</p>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Back to overview</a>

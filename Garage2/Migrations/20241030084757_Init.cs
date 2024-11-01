@@ -17,7 +17,7 @@ namespace Garage2.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VehicleType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VehicleType = table.Column<int>(type: "int", nullable: false),
                     RegistrationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Make = table.Column<string>(type: "nvarchar(max)", nullable: false),

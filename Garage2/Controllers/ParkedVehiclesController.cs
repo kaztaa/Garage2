@@ -20,48 +20,8 @@ namespace Garage2.Controllers
         }
 
         // GET: ParkedVehicles
-        public async Task<IActionResult> Index(string searchField, int type, string sortBy, string currentFilter, int currentType)
+        public async Task<IActionResult> Index()
         {
-            var vehicles = _context.ParkedVehicle.ToList();
-            ViewData["TypeSortParam"] = sortBy == "type_desc" ? "type_asc" : "type_desc";
-            ViewData["RegNrSortParam"] = sortBy == "regNr_desc" ? "regNr_asc" : "regNr_desc";
-            ViewData["ArrivalTimeSortParam"] = sortBy == "at_desc" ? "at_asc" : "at_desc";
-            ViewData["ParkedDurationSortParam"] = sortBy == "pd_desc" ? "pd_asc" : "pd_desc";
-            
-
-            if (string.IsNullOrEmpty(searchField))
-            {
-                searchField = currentFilter;
-            }
-            if (type == 0)
-            {
-                type = currentType;
-            }
-
-            ViewData["CurrentFilter"] = searchField;
-            ViewData["CurrentType"] = type;
-
-            if (!string.IsNullOrEmpty(searchField))
-            {
-                switch (type)
-                {
-                    case 1:
-                        vehicles = vehicles.Where(e => e.RegistrationNumber.ToUpper().Contains(searchField.ToUpper())).ToList();
-                        break;
-                    case 2:
-                        vehicles = vehicles.Where(e => e.VehicleType.ToString().ToUpper() == searchField.ToUpper()).ToList();
-                        break;
-                    case 3:
-                        vehicles = vehicles.Where(e => e.Color.ToUpper() == searchField.ToUpper()).ToList();
-                        break;
-                    case 4:
-                        vehicles = vehicles.Where(e => e.Make.ToUpper() == searchField.ToUpper()).ToList();
-                        break;
-                    case 5:
-                        vehicles = vehicles.Where(e => e.Model.ToUpper() == searchField.ToUpper()).ToList();
-                        break;
-                }
-            }
 
             switch (sortBy)
             {
@@ -112,26 +72,18 @@ namespace Garage2.Controllers
             return View(parkedVehicle);
         }
 
-        // GET: ParkedVehicles/Create
-        public IActionResult Create()
+        // GET: ParkedVehicles/CheckIn
+        public IActionResult CheckIn()
         {
-            // Get the enum values for VehicleType and create a SelectList
-            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
-                .Cast<VehicleType>()
-                .Select(v => new SelectListItem
-                {
-                    Value = v.ToString(),
-                    Text = v.ToString()
-                });
             return View();
         }
 
-        // POST: ParkedVehicles/Create
+        // POST: ParkedVehicles/CheckIn
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,VehicleType,RegistrationNumber,Color,Make,Model,NumberOfWheels,ArrivalTime")] ParkedVehicle parkedVehicle)
+        public async Task<IActionResult> CheckIn([Bind("Id,VehicleType,RegistrationNumber,Color,Make,Model,NumberOfWheels,ArrivalTime")] ParkedVehicle parkedVehicle)
         {
             if (ModelState.IsValid)
             {
@@ -152,15 +104,6 @@ namespace Garage2.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-
-            // Repopulate VehicleTypes for the dropdown in case of validation errors
-            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
-                .Cast<VehicleType>()
-                .Select(v => new SelectListItem
-                {
-                    Value = v.ToString(),
-                    Text = v.ToString()
-                });
 
             return View(parkedVehicle);
         }
@@ -217,8 +160,8 @@ namespace Garage2.Controllers
             return View(parkedVehicle);
         }
 
-        // GET: ParkedVehicles/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: ParkedVehicles/CheckOut/5
+        public async Task<IActionResult> CheckOut(int? id)
         {
             if (id == null)
             {
@@ -236,9 +179,9 @@ namespace Garage2.Controllers
         }
 
 
-		[HttpPost, ActionName("Delete")]
+		[HttpPost, ActionName("CheckOut")]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteConfirmed(int id)
+		public async Task<IActionResult> CheckOutConfirmed(int id)
 		{
 			var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
 			if (parkedVehicle == null)
@@ -269,6 +212,51 @@ namespace Garage2.Controllers
 		private bool ParkedVehicleExists(int id)
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> Search(string searchField, int type)
+        {
+            if (!string.IsNullOrEmpty(searchField))
+            {
+                if (type == 1)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber.Contains(searchField));
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 2)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.VehicleType == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 3)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Color == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 4)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Make == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else if (type == 5)
+                {
+                    var results = _context.ParkedVehicle.Where(e => e.Model == searchField);
+
+                    return View("Index", await results.ToListAsync());
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
         public async Task<IActionResult> ParkingConfirmation(int id)
 		{
@@ -304,5 +292,39 @@ namespace Garage2.Controllers
 
 			return View("Receipt", receiptModel); 
 		}
-	}
+
+        public async Task<IActionResult> Stats(string sortBy)
+        {
+
+            decimal pricePerHour = 10; 
+
+            var parkedVehicles = await _context.ParkedVehicle
+                .Where(v => v.CheckoutTime == null) 
+                .ToListAsync();
+
+            var totalRevenue = parkedVehicles
+                .Select(v => (decimal)(DateTime.Now - v.ArrivalTime).TotalHours * pricePerHour)
+                .Sum(); 
+
+            var stats = new Stats
+            {
+
+
+                TotalVehicles = await _context.ParkedVehicle.CountAsync(),
+                Motorcycles = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Motorcycle),
+                Cars = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Car),
+                Trucks = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Truck),
+                Buses = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Bus),
+                Vans = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Van),
+                Bicycles = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Bicycle),
+                Wheels = await _context.ParkedVehicle.SumAsync(v => v.NumberOfWheels),
+                Revenue = totalRevenue
+
+            };
+
+            return View("Stats", stats);
+        }
+
+
+    }
 }

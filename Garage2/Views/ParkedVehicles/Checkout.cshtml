@@ -11,85 +11,51 @@
     <hr class="my-4 border-gray-300" />
 
     <dl class="gap-y-4 grid grid-cols-1">
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.VehicleType)
-            </dt>
-            <dd class="w-2/3 text-center">
-                @Html.DisplayFor(model => model.VehicleType)
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.VehicleType)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.VehicleType)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.RegistrationNumber)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.RegistrationNumber)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.Color)</dt>
+            <dd class="flex items-center justify-end">
+                <div style="width: 20px; height: 20px; background-color:@Model.Color;" class="border"></div>
             </dd>
         </div>
 
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.RegistrationNumber)
-            </dt>
-            <dd class="w-2/3 text-center">
-                @Html.DisplayFor(model => model.RegistrationNumber)
-            </dd>
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.Make)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.Make)</dd>
         </div>
 
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.Color)
-            </dt>
-            <dd class="flex w-2/3 items-center justify-center text-center">
-                <div style="width: 20px; height: 20px; background-color:@Model.Color;" class="mr-2 border"></div>
-            </dd>
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.Model)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.Model)</dd>
         </div>
 
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.Make)
-            </dt>
-            <dd class="w-2/3 text-center">
-                @Html.DisplayFor(model => model.Make)
-            </dd>
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.NumberOfWheels)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.NumberOfWheels)</dd>
         </div>
 
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.Model)
-            </dt>
-            <dd class="w-2/3 text-center">
-                @Html.DisplayFor(model => model.Model)
-            </dd>
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.ArrivalTime)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.ArrivalTime)</dd>
         </div>
 
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.NumberOfWheels)
-            </dt>
-            <dd class="w-2/3 text-center">
-                @Html.DisplayFor(model => model.NumberOfWheels)
-            </dd>
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.ParkedDuration)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.ParkedDuration)</dd>
         </div>
 
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.ArrivalTime)
-            </dt>
-            <dd class="w-2/3 text-center">
-                @Html.DisplayFor(model => model.ArrivalTime)
-            </dd>
-        </div>
-
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.ParkedDuration)
-            </dt>
-            <dd class="w-2/3 text-center">
-                @Html.DisplayFor(model => model.ParkedDuration)
-            </dd>
-        </div>
-
-        <div class="flex items-center justify-between">
-            <dt class="text-gray-700 w-1/3 text-center font-medium">
-                @Html.DisplayNameFor(model => model.ParkingCost)
-            </dt>
-            <dd class="w-2/3 text-center">
-                @Html.DisplayFor(model => model.ParkingCost)
-            </dd>
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.ParkingCost)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.ParkingCost)</dd>
         </div>
     </dl>
 
@@ -99,6 +65,3 @@
         <a asp-action="Index" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">Back to List</a>
     </form>
 </div>
-
-
-

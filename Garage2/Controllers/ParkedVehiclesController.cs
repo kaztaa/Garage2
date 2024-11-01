@@ -115,14 +115,6 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles/CheckIn
         public IActionResult CheckIn()
         {
-            // Get the enum values for VehicleType and create a SelectList
-            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
-                .Cast<VehicleType>()
-                .Select(v => new SelectListItem
-                {
-                    Value = v.ToString(),
-                    Text = v.ToString()
-                });
             return View();
         }
 
@@ -152,15 +144,6 @@ namespace Garage2.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-
-            // Repopulate VehicleTypes for the dropdown in case of validation errors
-            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
-                .Cast<VehicleType>()
-                .Select(v => new SelectListItem
-                {
-                    Value = v.ToString(),
-                    Text = v.ToString()
-                });
 
             return View(parkedVehicle);
         }

@@ -80,14 +80,6 @@ namespace Garage2.Controllers
         // GET: ParkedVehicles/CheckIn
         public IActionResult CheckIn()
         {
-            // Get the enum values for VehicleType and create a SelectList
-            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
-                .Cast<VehicleType>()
-                .Select(v => new SelectListItem
-                {
-                    Value = v.ToString(),
-                    Text = v.ToString()
-                });
             return View();
         }
 
@@ -117,15 +109,6 @@ namespace Garage2.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-
-            // Repopulate VehicleTypes for the dropdown in case of validation errors
-            ViewBag.VehicleTypes = Enum.GetValues(typeof(VehicleType))
-                .Cast<VehicleType>()
-                .Select(v => new SelectListItem
-                {
-                    Value = v.ToString(),
-                    Text = v.ToString()
-                });
 
             return View(parkedVehicle);
         }
@@ -248,26 +231,33 @@ namespace Garage2.Controllers
                 }
                 else if (type == 2)
                 {
-                    var results = _context.ParkedVehicle.Where(e => e.VehicleType == searchField);
-
-                    return View("Index", await results.ToListAsync());
+                    // Attempt to parse the VehicleType from the searchField
+                    if (Enum.TryParse<VehicleTypes>(searchField, true, out var vehicleType))
+                    {
+                        var results = _context.ParkedVehicle.Where(e => e.VehicleType == vehicleType);
+                        return View("Index", await results.ToListAsync());
+                    }
+                    else
+                    {
+                        // Handle case where the searchField is not a valid VehicleTypes
+                        // For example, you could return all vehicles or handle it as you see fit
+                        ModelState.AddModelError("VehicleType", "Invalid vehicle type.");
+                        return View("Index", await _context.ParkedVehicle.ToListAsync());
+                    }
                 }
                 else if (type == 3)
                 {
                     var results = _context.ParkedVehicle.Where(e => e.Color == searchField);
-
                     return View("Index", await results.ToListAsync());
                 }
                 else if (type == 4)
                 {
                     var results = _context.ParkedVehicle.Where(e => e.Make == searchField);
-
                     return View("Index", await results.ToListAsync());
                 }
                 else if (type == 5)
                 {
                     var results = _context.ParkedVehicle.Where(e => e.Model == searchField);
-
                     return View("Index", await results.ToListAsync());
                 }
                 else
@@ -280,6 +270,7 @@ namespace Garage2.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
         public async Task<IActionResult> ParkingConfirmation(int id)
 		{
 			var vehicle = await _context.ParkedVehicle.FindAsync(id);

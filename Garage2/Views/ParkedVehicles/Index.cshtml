@@ -46,7 +46,7 @@
                 </a>
             </th>
             <th>
-                <a class="text-dark" asp-action="Index" asp-route-sortBy="@ViewData["ParkedDurationSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                <a class="text-dark" asp-action="Index" asp-route-sortBy="@ViewData["ParkedDurationSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                     @Html.DisplayNameFor(model => model.ParkedDuration)
                 </a>
             </th>

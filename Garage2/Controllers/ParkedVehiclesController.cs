@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage2.Data;
 using Garage2.Models;
+using System.Globalization;
 
 namespace Garage2.Controllers
 {
@@ -20,8 +21,48 @@ namespace Garage2.Controllers
         }
 
         // GET: ParkedVehicles
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchField, string sortBy, int type, string currentFilter, int currentType)
         {
+            var vehicles = _context.ParkedVehicle.ToList();
+            ViewData["TypeSortParam"] = sortBy == "type_desc" ? "type_asc" : "type_desc";
+            ViewData["RegNrSortParam"] = sortBy == "regNr_desc" ? "regNr_asc" : "regNr_desc";
+            ViewData["ArrivalTimeSortParam"] = sortBy == "at_desc" ? "at_asc" : "at_desc";
+            ViewData["ParkedDurationSortParam"] = sortBy == "pd_desc" ? "pd_asc" : "pd_desc";
+
+
+            if (string.IsNullOrEmpty(searchField))
+            {
+                searchField = currentFilter;
+            }
+            if (type == 0)
+            {
+                type = currentType;
+            }
+
+            ViewData["CurrentFilter"] = searchField;
+            ViewData["CurrentType"] = type;
+
+            if (!string.IsNullOrEmpty(searchField))
+            {
+                switch (type)
+                {
+                    case 1:
+                        vehicles = vehicles.Where(e => e.RegistrationNumber.ToUpper().Contains(searchField.ToUpper())).ToList();
+                        break;
+                    case 2:
+                        vehicles = vehicles.Where(e => e.VehicleType.ToString().ToUpper() == searchField.ToUpper()).ToList();
+                        break;
+                    case 3:
+                        vehicles = vehicles.Where(e => e.Color.ToUpper() == searchField.ToUpper()).ToList();
+                        break;
+                    case 4:
+                        vehicles = vehicles.Where(e => e.Make.ToUpper() == searchField.ToUpper()).ToList();
+                        break;
+                    case 5:
+                        vehicles = vehicles.Where(e => e.Model.ToUpper() == searchField.ToUpper()).ToList();
+                        break;
+                }
+            }
 
             switch (sortBy)
             {
@@ -214,50 +255,6 @@ namespace Garage2.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> Search(string searchField, int type)
-        {
-            if (!string.IsNullOrEmpty(searchField))
-            {
-                if (type == 1)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.RegistrationNumber.Contains(searchField));
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else if (type == 2)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.VehicleType == searchField);
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else if (type == 3)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.Color == searchField);
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else if (type == 4)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.Make == searchField);
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else if (type == 5)
-                {
-                    var results = _context.ParkedVehicle.Where(e => e.Model == searchField);
-
-                    return View("Index", await results.ToListAsync());
-                }
-                else
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-            else
-            {
-                return RedirectToAction(nameof(Index));
-            }
-        }
         public async Task<IActionResult> ParkingConfirmation(int id)
 		{
 			var vehicle = await _context.ParkedVehicle.FindAsync(id);

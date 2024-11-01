@@ -8,7 +8,7 @@
     <h1 class="mb-8 text-4xl font-bold">Parked Vehicles</h1>
 
     <p class="mb-4">
-        <a href="@Url.Action("CheckIn")" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Park a vehicle</a>
+        <a href="@Url.Action("CheckIn")" class="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-600">Park a vehicle</a>
     </p>
 
     <form asp-action="Search" class="w-full max-w-lg">
@@ -23,7 +23,7 @@
                 <option value="5">Model</option>
             </select>
 
-            <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700" type="submit">Search</button>
+            <button class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600" type="submit">Search</button>
         </div>
     </form>
 
@@ -72,84 +72,3 @@
     </table>
 </div>
 
-
-
-
-@* @model IEnumerable<Garage2.Models.ParkedVehicle>
-
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Garage 2.0</h1>
-
-<p>
-    <a asp-action="CheckIn">Park a vehicle</a>
-    <form asp-action="Search">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="searchField" placeholder="Search..." />
-            <div class="input-group-append">
-                <select class="form-control" name="type">
-                    <option value="1">Registration Number</option>
-                    <option value="2">Vehicle Type</option>
-                    <option value="3">Color</option>
-                    <option value="4">Make</option>
-                    <option value="5">Model</option>
-                </select>
-            </div>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit">Search</button>
-            </div>
-        </div>
-    </form>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a class="text-dark" asp-action="Index" asp-route-sortBy=@ViewData["TypeSortParam"]>
-                    @Html.DisplayNameFor(model => model.VehicleType)
-                </a>
-            </th>
-            <th>
-                <a class="text-dark" asp-action="Index" asp-route-sortBy=@ViewData["RegNrSortParam"]>
-                    @Html.DisplayNameFor(model => model.RegistrationNumber)
-                </a>
-            </th>
-            <th>
-                <a class="text-dark" asp-action="Index" asp-route-sortBy=@ViewData["ArrivalTimeSortParam"]>
-                    @Html.DisplayNameFor(model => model.ArrivalTime)
-                </a>
-            </th>
-            <th>
-                <a class="text-dark" asp-action="Index" asp-route-sortBy=@ViewData["ParkedDurationSortParam"]>
-                    @Html.DisplayNameFor(model => model.ParkedDuration)
-                </a>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehicleType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegistrationNumber)
-            </td>
-              <td>
-                @Html.DisplayFor(modelItem => item.ArrivalTime)
-               </td>
-            <td>@Html.DisplayFor(modelItem => item.ParkedDuration)
-               </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="CheckOut" asp-route-id="@item.Id">Checkout</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
- *@

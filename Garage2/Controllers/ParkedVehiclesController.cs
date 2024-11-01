@@ -20,13 +20,26 @@ namespace Garage2.Controllers
         }
 
         // GET: ParkedVehicles
-        public async Task<IActionResult> Index(string searchField, int type, string sortBy)
+        public async Task<IActionResult> Index(string searchField, int type, string sortBy, string currentFilter, int currentType)
         {
             var vehicles = _context.ParkedVehicle.ToList();
             ViewData["TypeSortParam"] = sortBy == "type_desc" ? "type_asc" : "type_desc";
             ViewData["RegNrSortParam"] = sortBy == "regNr_desc" ? "regNr_asc" : "regNr_desc";
             ViewData["ArrivalTimeSortParam"] = sortBy == "at_desc" ? "at_asc" : "at_desc";
             ViewData["ParkedDurationSortParam"] = sortBy == "pd_desc" ? "pd_asc" : "pd_desc";
+            
+
+            if (string.IsNullOrEmpty(searchField))
+            {
+                searchField = currentFilter;
+            }
+            if (type == 0)
+            {
+                type = currentType;
+            }
+
+            ViewData["CurrentFilter"] = searchField;
+            ViewData["CurrentType"] = type;
 
             if (!string.IsNullOrEmpty(searchField))
             {

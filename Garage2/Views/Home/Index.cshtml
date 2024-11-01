@@ -2,7 +2,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="animate-fadeIn flex h-screen flex-col items-center justify-center text-center">
+    <h1 class="mb-6 text-4xl font-bold">
+        Welcome to DAJS Garage
+    </h1>
+
+
+    <a asp-controller="ParkedVehicles" asp-action="CheckIn" class="bg-indigo-600 text-white px-8 py-4 mt-4 rounded-lg text-xl transition duration-1000 hover:bg-gray-700">
+        Park your vehicle
+    </a>
 </div>
+
+
+

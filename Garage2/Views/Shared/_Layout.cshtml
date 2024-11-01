@@ -33,15 +33,15 @@
                 <!-- Navbar Links (Hidden on mobile, shown on md and larger) -->
                 <div id="navbar-links" class="space-x-6 hidden md:flex">
                     <a class="nav-link text-dark hover:text-red-500" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="nav-link text-dark hover:text-red-500" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     <a class="nav-link text-dark hover:text-red-500" asp-controller="ParkedVehicles" asp-action="Index">Parked Vehicles</a>
+                    <a class="nav-link text-dark hover:text-red-500" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </div>
             </div>
             <!-- Mobile Menu Links -->
             <div id="mobile-navbar-links" class="space-y-2 px-4 pb-2 flex hidden flex-col md:hidden">
                 <a class="nav-link text-dark hover:text-red-500" asp-controller="Home" asp-action="Index">Home</a>
-                <a class="nav-link text-dark hover:text-red-500" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 <a class="nav-link text-dark hover:text-red-500" asp-controller="ParkedVehicles" asp-action="Index">Parked Vehicles</a>
+                <a class="nav-link text-dark hover:text-red-500" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </nav>
     </header>

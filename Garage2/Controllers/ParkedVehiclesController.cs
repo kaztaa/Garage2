@@ -29,7 +29,7 @@ namespace Garage2.Controllers
             ViewData["ArrivalTimeSortParam"] = sortBy == "at_desc" ? "at_asc" : "at_desc";
             ViewData["ParkedDurationSortParam"] = sortBy == "pd_desc" ? "pd_asc" : "pd_desc";
 
-
+            //
             if (string.IsNullOrEmpty(searchField))
             {
                 searchField = currentFilter;

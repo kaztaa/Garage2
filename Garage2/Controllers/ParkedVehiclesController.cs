@@ -49,7 +49,7 @@ namespace Garage2.Controllers
                         vehicles = vehicles.Where(e => e.RegistrationNumber.ToUpper().Contains(searchField.ToUpper())).ToList();
                         break;
                     case 2:
-                        vehicles = vehicles.Where(e => e.VehicleType.ToUpper() == searchField.ToUpper()).ToList();
+                        vehicles = vehicles.Where(e => e.VehicleType.ToString().ToUpper() == searchField.ToUpper()).ToList();
                         break;
                     case 3:
                         vehicles = vehicles.Where(e => e.Color.ToUpper() == searchField.ToUpper()).ToList();
@@ -307,12 +307,12 @@ namespace Garage2.Controllers
 
 
                 TotalVehicles = await _context.ParkedVehicle.CountAsync(),
-                Motorcycles = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Motorcycle"),
-                Cars = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Car"),
-                Trucks = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Truck"),
-                Buses = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Bus"),
-                Vans = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Van"),
-                Bicycles = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Bicycle"),
+                Motorcycles = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Motorcycle),
+                Cars = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Car),
+                Trucks = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Truck),
+                Buses = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Bus),
+                Vans = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Van),
+                Bicycles = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == VehicleTypes.Bicycle),
                 Wheels = await _context.ParkedVehicle.SumAsync(v => v.NumberOfWheels),
                 Revenue = totalRevenue
 

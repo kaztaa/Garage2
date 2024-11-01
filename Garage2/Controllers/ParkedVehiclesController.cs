@@ -315,6 +315,38 @@ namespace Garage2.Controllers
 			return View("Receipt", receiptModel); 
 		}
 
+        public async Task<IActionResult> Stats(string sortBy)
+        {
 
-	}
+            decimal pricePerHour = 10; 
+
+            var parkedVehicles = await _context.ParkedVehicle
+                .Where(v => v.CheckoutTime == null) 
+                .ToListAsync();
+
+            var totalRevenue = parkedVehicles
+                .Select(v => (decimal)(DateTime.Now - v.ArrivalTime).TotalHours * pricePerHour)
+                .Sum(); 
+
+            var stats = new Stats
+            {
+
+
+                TotalVehicles = await _context.ParkedVehicle.CountAsync(),
+                Motorcycles = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Motorcycle"),
+                Cars = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Car"),
+                Trucks = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Truck"),
+                Buses = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Bus"),
+                Vans = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Van"),
+                Bicycles = await _context.ParkedVehicle.CountAsync(v => v.VehicleType == "Bicycle"),
+                Wheels = await _context.ParkedVehicle.SumAsync(v => v.NumberOfWheels),
+                Revenue = totalRevenue
+
+            };
+
+            return View("Stats", stats);
+        }
+
+
+    }
 }

@@ -3,15 +3,30 @@
 @{
     ViewData["Title"] = "Receipt";
 }
-<h2>Receipt</h2>
 
-<div>
-    <p><strong>Registration number:</strong> @Model.RegistrationNumber</p>
-    <p><strong>Arrival time:</strong> @Model.ArrivalTime.ToString("yyyy-MM-dd HH:mm")</p>
-    <p><strong>Checkout time:</strong> @Model.CheckoutTime</p>
-    <p><strong>Duration:</strong> @Model.ParkedDuration</p>
-    <p><strong>Cost:</strong> @Model.ParkingCost.ToString("C")</p>
+<div class="my-10 mx-auto max-w-md text-center">
+    <h2 class="mb-6 text-3xl font-bold">Receipt</h2>
+
+    <div class="mb-6 space-y-4">
+        <p class="text-lg">
+            <strong class="text-gray-700 font-semibold">Registration number:</strong> @Model.RegistrationNumber
+        </p>
+        <p class="text-lg">
+            <strong class="text-gray-700 font-semibold">Arrival time:</strong> @Model.ArrivalTime.ToString("yyyy-MM-dd HH:mm")
+        </p>
+        <p class="text-lg">
+            <strong class="text-gray-700 font-semibold">Checkout time:</strong> @Model.CheckoutTime
+        </p>
+        <p class="text-lg">
+            <strong class="text-gray-700 font-semibold">Duration:</strong> @Model.ParkedDuration
+        </p>
+        <p class="text-lg">
+            <strong class="text-gray-700 font-semibold">Cost:</strong> @Model.ParkingCost.ToString("C")
+        </p>
+    </div>
+
+    <div class="space-x-4 mt-6 flex justify-center">
+        <button onclick="window.print()" class="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-600">Print receipt</button>
+        <a asp-action="Index" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">Back to overview</a>
+    </div>
 </div>
-
-<button onclick="window.print()" class="btn btn-primary">Print receipt</button>
-<a asp-action="Index" class="btn btn-secondary">Back to overview</a>

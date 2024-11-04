@@ -4,72 +4,64 @@
     ViewData["Title"] = "Checkout";
 }
 
-<h1>Checkout</h1>
+<div class="my-10 mx-auto max-w-md">
+    <h1 class="mb-6 text-center text-3xl font-bold">Checkout</h1>
 
-<h3>Are you sure you want to checkout?</h3>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VehicleType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VehicleType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RegistrationNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RegistrationNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class="col-sm-10">
-            <span style="display: inline-block; width: 20px; height: 20px; background-color:@Model.Color; border: 1px solid #000; margin-left: 10px;"></span>
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Make)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Make)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NumberOfWheels)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NumberOfWheels)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ArrivalTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ArrivalTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ParkedDuration)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ParkedDuration)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ParkingCost)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ParkingCost)
-        </dd>
+    <h3 class="text-center text-lg font-semibold">Are you sure you want to checkout?</h3>
+    <hr class="my-4 border-gray-300" />
+
+    <dl class="gap-y-4 grid grid-cols-1">
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.VehicleType)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.VehicleType)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.RegistrationNumber)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.RegistrationNumber)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.Color)</dt>
+            <dd class="flex items-center justify-end">
+                <div style="width: 20px; height: 20px; background-color:@Model.Color;" class="border"></div>
+            </dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.Make)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.Make)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.Model)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.Model)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.NumberOfWheels)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.NumberOfWheels)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.ArrivalTime)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.ArrivalTime)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.ParkedDuration)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.ParkedDuration)</dd>
+        </div>
+
+        <div class="gap-x-8 flex items-center justify-between">
+            <dt class="text-gray-700 text-left font-medium">@Html.DisplayNameFor(model => model.ParkingCost)</dt>
+            <dd class="text-gray-900 text-right">@Html.DisplayFor(model => model.ParkingCost)</dd>
+        </div>
     </dl>
 
-    
-    <form asp-action="CheckOut">
+    <form asp-action="CheckOut" class="mt-6 space-x-4 flex justify-center">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Checkout" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Checkout" class="bg-red-600 text-white px-4 py-2 cursor-pointer rounded hover:bg-red-700" />
+        <a asp-action="Index" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">Back to List</a>
     </form>
 </div>

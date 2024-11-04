@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Garage2.Migrations
 {
     /// <inheritdoc />
-    public partial class postmerge : Migration
+    public partial class dbupdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,35 +16,35 @@ namespace Garage2.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "ArrivalTime",
-                value: new DateTime(2024, 10, 30, 13, 12, 32, 291, DateTimeKind.Local).AddTicks(6489));
+                value: new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9379));
 
             migrationBuilder.UpdateData(
                 table: "ParkedVehicle",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "ArrivalTime",
-                value: new DateTime(2024, 10, 30, 13, 12, 32, 291, DateTimeKind.Local).AddTicks(6495));
+                value: new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9386));
 
             migrationBuilder.UpdateData(
                 table: "ParkedVehicle",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "ArrivalTime",
-                value: new DateTime(2024, 10, 30, 13, 12, 32, 291, DateTimeKind.Local).AddTicks(6499));
+                value: new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9390));
 
             migrationBuilder.UpdateData(
                 table: "ParkedVehicle",
                 keyColumn: "Id",
                 keyValue: 4,
-                columns: new[] { "ArrivalTime", "NumberOfWheels" },
-                values: new object[] { new DateTime(2024, 10, 30, 13, 12, 32, 291, DateTimeKind.Local).AddTicks(6503), 2 });
+                column: "ArrivalTime",
+                value: new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9393));
 
             migrationBuilder.UpdateData(
                 table: "ParkedVehicle",
                 keyColumn: "Id",
                 keyValue: 5,
-                columns: new[] { "ArrivalTime", "NumberOfWheels" },
-                values: new object[] { new DateTime(2024, 10, 30, 13, 12, 32, 291, DateTimeKind.Local).AddTicks(6507), 2 });
+                column: "ArrivalTime",
+                value: new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9397));
         }
 
         /// <inheritdoc />
@@ -55,35 +55,35 @@ namespace Garage2.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "ArrivalTime",
-                value: new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8746));
+                value: new DateTime(2024, 11, 1, 9, 58, 7, 269, DateTimeKind.Local).AddTicks(2662));
 
             migrationBuilder.UpdateData(
                 table: "ParkedVehicle",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "ArrivalTime",
-                value: new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8752));
+                value: new DateTime(2024, 11, 1, 9, 58, 7, 269, DateTimeKind.Local).AddTicks(2669));
 
             migrationBuilder.UpdateData(
                 table: "ParkedVehicle",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "ArrivalTime",
-                value: new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8756));
+                value: new DateTime(2024, 11, 1, 9, 58, 7, 269, DateTimeKind.Local).AddTicks(2672));
 
             migrationBuilder.UpdateData(
                 table: "ParkedVehicle",
                 keyColumn: "Id",
                 keyValue: 4,
-                columns: new[] { "ArrivalTime", "NumberOfWheels" },
-                values: new object[] { new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8760), 4 });
+                column: "ArrivalTime",
+                value: new DateTime(2024, 11, 1, 9, 58, 7, 269, DateTimeKind.Local).AddTicks(2676));
 
             migrationBuilder.UpdateData(
                 table: "ParkedVehicle",
                 keyColumn: "Id",
                 keyValue: 5,
-                columns: new[] { "ArrivalTime", "NumberOfWheels" },
-                values: new object[] { new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8764), 4 });
+                column: "ArrivalTime",
+                value: new DateTime(2024, 11, 1, 9, 58, 7, 269, DateTimeKind.Local).AddTicks(2679));
         }
     }
 }

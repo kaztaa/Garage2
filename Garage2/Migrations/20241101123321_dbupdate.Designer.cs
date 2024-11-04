@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage2.Migrations
 {
     [DbContext(typeof(Garage2Context))]
-    [Migration("20241030131609_Init2")]
-    partial class Init2
+    [Migration("20241101123321_dbupdate")]
+    partial class dbupdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,11 +45,13 @@ namespace Garage2.Migrations
 
                     b.Property<string>("Make")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<int>("NumberOfWheels")
                         .HasColumnType("int");
@@ -58,9 +60,8 @@ namespace Garage2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VehicleType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("VehicleType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -70,57 +71,57 @@ namespace Garage2.Migrations
                         new
                         {
                             Id = 1,
-                            ArrivalTime = new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8746),
+                            ArrivalTime = new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9379),
                             Color = "Blue",
                             Make = "Toyota",
                             Model = "Corolla",
                             NumberOfWheels = 4,
                             RegistrationNumber = "ABC123",
-                            VehicleType = "Car"
+                            VehicleType = 0
                         },
                         new
                         {
                             Id = 2,
-                            ArrivalTime = new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8752),
+                            ArrivalTime = new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9386),
                             Color = "Green",
                             Make = "Hundai",
                             Model = "i3",
                             NumberOfWheels = 4,
                             RegistrationNumber = "ERT234",
-                            VehicleType = "Car"
+                            VehicleType = 0
                         },
                         new
                         {
                             Id = 3,
-                            ArrivalTime = new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8756),
+                            ArrivalTime = new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9390),
                             Color = "Balck",
                             Make = "BMW",
                             Model = "M3",
                             NumberOfWheels = 4,
                             RegistrationNumber = "ERR134",
-                            VehicleType = "Car"
+                            VehicleType = 0
                         },
                         new
                         {
                             Id = 4,
-                            ArrivalTime = new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8760),
+                            ArrivalTime = new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9393),
                             Color = "Red",
                             Make = "Honda",
                             Model = "Goldwing",
-                            NumberOfWheels = 4,
+                            NumberOfWheels = 2,
                             RegistrationNumber = "HFF577",
-                            VehicleType = "Motorcycle"
+                            VehicleType = 1
                         },
                         new
                         {
                             Id = 5,
-                            ArrivalTime = new DateTime(2024, 10, 30, 12, 16, 9, 319, DateTimeKind.Local).AddTicks(8764),
+                            ArrivalTime = new DateTime(2024, 11, 1, 11, 33, 20, 258, DateTimeKind.Local).AddTicks(9397),
                             Color = "Green",
                             Make = "Yamaha",
                             Model = "R1",
-                            NumberOfWheels = 4,
+                            NumberOfWheels = 2,
                             RegistrationNumber = "OOP123",
-                            VehicleType = "Motorcycle"
+                            VehicleType = 1
                         });
                 });
 #pragma warning restore 612, 618

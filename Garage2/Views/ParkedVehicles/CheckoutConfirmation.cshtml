@@ -1,13 +1,54 @@
 ﻿@model Garage2.Models.ParkedVehicle
 
+<div class="my-10 mx-auto max-w-md">
+    <h2 class="mb-6 text-center text-2xl font-bold">Checkout Confirmed</h2>
+
+    <p class="mb-4 text-center text-lg">
+        Vehicle with registration number <strong class="font-semibold">@Model.RegistrationNumber</strong> has now been checked out!
+    </p>
+
+    <dl class="gap-y-4 mb-6 grid grid-cols-1">
+        <div class="flex items-center justify-between">
+            <dt class="text-gray-700 w-1/3 text-center font-medium">Type:</dt>
+            <dd class="w-2/3 text-center">@Model.VehicleType</dd>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <dt class="text-gray-700 w-1/3 text-center font-medium">Arrival:</dt>
+            <dd class="w-2/3 text-center">@Model.ArrivalTime.ToString("yyyy-MM-dd HH:mm")</dd>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <dt class="text-gray-700 w-1/3 text-center font-medium">Duration:</dt>
+            <dd class="w-2/3 text-center">@Model.ParkedDuration</dd>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <dt class="text-gray-700 w-1/3 text-center font-medium">Checkout time:</dt>
+            <dd class="w-2/3 text-center">@Model.CheckoutTime?.ToString("yyyy-MM-dd HH:mm")</dd>
+        </div>
+    </dl>
+
+    <div class="space-x-4 flex justify-center">
+        <a asp-action="Receipt" asp-route-id="@Model.Id" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Show Receipt</a>
+        <a asp-action="Index" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">Back to Overview</a>
+    </div>
+</div>
+
+
+
+
+@* @model Garage2.Models.ParkedVehicle
+
 <h2>Checkout confirmed</h2>
 
-<p>Vechicle with registration number <strong>@Model.RegistrationNumber</strong> has been checked out!.</p>
+<p>Vechicle with registration number <strong>@Model.RegistrationNumber</strong> has now been checked out!</p>
 <p><strong>Type:</strong> @Model.VehicleType</p>
 <p><strong>Arrival:</strong> @Model.ArrivalTime.ToString("yyyy-MM-dd HH:mm")</p>
 <p><strong>Duration:</strong> @Model.ParkedDuration</p>
 <p><strong>Checkout time:</strong> @Model.CheckoutTime?.ToString("yyyy-MM-dd HH:mm")</p>
 
-<a asp-action="Receipt" asp-route-id="@Model.Id" class="btn btn-primary">Visa Kvitto</a>
+<a asp-action="Receipt" asp-route-id="@Model.Id" class="btn btn-primary">Show Receipt</a>
 
-<a asp-action="Index" class="btn btn-secondary">Back to overview</a>
+<a asp-action="Index" class="btn btn-secondary">Back to Overview</a>
+ *@

@@ -4,61 +4,81 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="my-10 mx-auto max-w-md">
+    <h1 class="mb-6 text-center text-3xl font-bold">Edit</h1>
 
-<h4>ParkedVehicle</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="VehicleType" class="control-label"></label>
-                <select asp-for="VehicleType" class="form-control" asp-items="@Html.GetEnumSelectList<VehicleTypes>()"></select>
-                <span asp-validation-for="VehicleType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RegistrationNumber" class="control-label"></label>
-                <input asp-for="RegistrationNumber" class="form-control" />
-                <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Make" class="control-label"></label>
-                <input asp-for="Make" class="form-control" />
-                <span asp-validation-for="Make" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfWheels" class="control-label"></label>
-                <input asp-for="NumberOfWheels" class="form-control" />
-                <span asp-validation-for="NumberOfWheels" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ArrivalTime" class="control-label"></label>
-                <input asp-for="ArrivalTime" class="form-control" disabled /> <!-- disbled, arrival tid ska inte kunna ändras -->
-                <span asp-validation-for="ArrivalTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    <h4 class="text-lg font-semibold">ParkedVehicle</h4>
+    <hr class="my-4 border-gray-300" />
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <form asp-action="Edit" class="space-y-4">
+        <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
+
+        <input type="hidden" asp-for="Id" />
+
+        <div>
+            <label asp-for="VehicleType" class="text-gray-700 block font-medium"></label>
+            <select id="vehicleTypeSelect" asp-for="VehicleType" class="p-2 w-full rounded-md border" asp-items="@Html.GetEnumSelectList<VehicleTypes>()"></select>
+            <span asp-validation-for="VehicleType" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="RegistrationNumber" class="text-gray-700 block font-medium"></label>
+            <input asp-for="RegistrationNumber" class="p-2 w-full rounded-md border" />
+            <span asp-validation-for="RegistrationNumber" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Color" class="text-gray-700 block font-medium"></label>
+            <input asp-for="Color" class="p-2 w-full rounded-md border" />
+            <span asp-validation-for="Color" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Make" class="text-gray-700 block font-medium"></label>
+            <input asp-for="Make" class="p-2 w-full rounded-md border" />
+            <span asp-validation-for="Make" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Model" class="text-gray-700 block font-medium"></label>
+            <input asp-for="Model" class="p-2 w-full rounded-md border" />
+            <span asp-validation-for="Model" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="NumberOfWheels" class="text-gray-700 block font-medium"></label>
+            <input asp-for="NumberOfWheels" class="p-2 w-full rounded-md border" />
+            <span asp-validation-for="NumberOfWheels" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="ArrivalTime" class="text-gray-700 block font-medium"></label>
+            <input asp-for="ArrivalTime" class="p-2 bg-gray-100 w-full rounded-md border" disabled /> <!-- disabled as ArrivalTime shouldn't be editable -->
+            <span asp-validation-for="ArrivalTime" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div class="gap-4 py-4 space-x-2 align-center flex justify-center">
+            <div>
+                <input type="submit" value="Save" class="bg-indigo-600 text-white px-4 py-2 cursor-pointer rounded hover:bg-indigo-700" />
+
+            </div>
+
+            <div class="">
+                <a asp-action="Index" class="bg-gray-700 text-white px-4 py-2 block rounded hover:bg-gray-600">Back to List</a>
+            </div>
+        </div>
+
+
+    </form>
+
+
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+
+

@@ -4,65 +4,60 @@
     ViewData["Title"] = "Check in";
 }
 
-<h1>Check in</h1>
+<div class="my-10 mx-auto max-w-md">
+    <h1 class="mb-6 text-center text-3xl font-bold">Check in</h1>
 
-<h4>ParkedVehicle</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CheckIn">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="VehicleType" class="control-label"></label>
-                <select asp-for="VehicleType" class="form-control" asp-items="@Html.GetEnumSelectList<VehicleTypes>()"></select>
-                <span asp-validation-for="VehicleType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RegistrationNumber" class="control-label"></label>
-                <input asp-for="RegistrationNumber" class="form-control" />
-                <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
-            </div>
-@*             <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" type="color" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Make" class="control-label"></label>
-                <input asp-for="Make" class="form-control" />
-                <span asp-validation-for="Make" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfWheels" class="control-label"></label>
-                <input asp-for="NumberOfWheels" class="form-control" />
-                <span asp-validation-for="NumberOfWheels" class="text-danger"></span>
-            </div>
-@*             <div class="form-group">
-                <label asp-for="ArrivalTime" class="control-label"></label>
-                <input asp-for="ArrivalTime" class="form-control" />
-                <span asp-validation-for="ArrivalTime" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <input type="submit" value="Check in" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    <h4 class="text-center text-lg font-semibold">Enter vehicle details to check in</h4>
+    <hr class="my-4 border-gray-300" />
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <form asp-action="CheckIn" class="space-y-4">
+        <div asp-validation-summary="ModelOnly" class="text-red-500 mb-4 text-center"></div>
+
+        <div class="gap-y-2 flex flex-col">
+            <label asp-for="VehicleType" class="text-gray-700 font-medium"></label>
+            <span asp-validation-for="VehicleType" class="text-red-500 mb-1 text-sm"></span>
+            <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleTypes>()" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" asp-items="ViewBag.VehicleTypes"></select>
+        </div>
+
+        <div class="gap-y-2 flex flex-col">
+            <label asp-for="RegistrationNumber" class="text-gray-700 font-medium"></label>
+            <span asp-validation-for="RegistrationNumber" class="text-red-500 mb-1 text-sm"></span>
+            <input asp-for="RegistrationNumber" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" />
+        </div>
+
+        <div class="gap-y-2 flex flex-col">
+            <label asp-for="Color" class="text-gray-700 font-medium"></label>
+            <span asp-validation-for="Color" class="text-red-500 mb-1 text-sm"></span>
+            <input asp-for="Color" class="py-2 px-3 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" type="color" />
+        </div>
+
+        <div class="gap-y-2 flex flex-col">
+            <label asp-for="Make" class="text-gray-700 font-medium"></label>
+            <span asp-validation-for="Make" class="text-red-500 mb-1 text-sm"></span>
+            <input asp-for="Make" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" />
+        </div>
+
+        <div class="gap-y-2 flex flex-col">
+            <label asp-for="Model" class="text-gray-700 font-medium"></label>
+            <span asp-validation-for="Model" class="text-red-500 mb-1 text-sm"></span>
+            <input asp-for="Model" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" />
+        </div>
+
+        <div class="gap-y-2 flex flex-col">
+            <label asp-for="NumberOfWheels" class="text-gray-700 font-medium"></label>
+            <span asp-validation-for="NumberOfWheels" class="text-red-500 mb-1 text-sm"></span>
+            <input asp-for="NumberOfWheels" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" />
+        </div>
+
+        <div class="mt-6 pt-7 space-x-4 flex justify-center">
+            <input type="submit" value="Check in" class="bg-indigo-700 text-white px-4 py-2 cursor-pointer rounded hover:bg-indigo-600" />
+            <a asp-action="Index" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">Back to List</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

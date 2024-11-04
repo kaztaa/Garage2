@@ -13,9 +13,9 @@
 
     <form asp-action="Index" class="w-full max-w-lg">
         <div class="space-y-3 flex flex-col md:space-y-0 md:flex-row md:space-x-3">
-            <input type="text" class="p-2 w-full rounded-md border" name="searchField" placeholder="Search..." />
+            <input type="text" class="p-2 w-full rounded-md border" name="searchField" value="@ViewData["CurrentFilter"]" placeholder="Search..." />
 
-            <select class="p-2 rounded-md border" name="type">
+            <select class="p-2 rounded-md border" name="type" value="@ViewData["CurrentType"]">
                 <option value="1">Registration Number</option>
                 <option value="2">Vehicle Type</option>
                 <option value="3">Color</option>
@@ -23,30 +23,31 @@
                 <option value="5">Model</option>
             </select>
 
-            <button class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600" type="submit">Search</button>
+            <button class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600" type="submit" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">Search</button>
         </div>
     </form>
+    <a asp-action="Index">Back to Full List</a>
 
     <table class="mt-6 bg-white border-gray-200 w-full max-w-4xl rounded-lg border shadow-md">
         <thead>
             <tr class="bg-gray-100">
                 <th class="p-3 border-b text-left">
-                    <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["TypeSortParam"]">
+                    <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["TypeSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                         @Html.DisplayNameFor(model => model.VehicleType)
                     </a>
                 </th>
                 <th class="p-3 border-b text-left">
-                    <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["RegNrSortParam"]">
+                    <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["RegNrSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                         @Html.DisplayNameFor(model => model.RegistrationNumber)
                     </a>
                 </th>
                 <th class="p-3 border-b text-left">
-                    <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["ArrivalTimeSortParam"]">
+                    <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["ArrivalTimeSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                         @Html.DisplayNameFor(model => model.ArrivalTime)
                     </a>
                 </th>
                 <th class="p-3 border-b text-left">
-                    <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["ParkedDurationSortParam"]">
+                    <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["ParkedDurationSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                         @Html.DisplayNameFor(model => model.ParkedDuration)
                     </a>
                 </th>

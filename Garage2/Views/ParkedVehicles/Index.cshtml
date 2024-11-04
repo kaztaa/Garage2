@@ -4,18 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="px-4 mt-10 flex flex-col items-center justify-center">
+<div class="mt-10 flex flex-col items-center justify-center px-4">
     <h1 class="mb-8 text-4xl font-bold">Parked Vehicles</h1>
 
     <p class="mb-4">
-        <a href="@Url.Action("CheckIn")" class="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-600">Park a vehicle</a>
+        <a href="@Url.Action("CheckIn")" class="rounded bg-indigo-700 px-4 py-2 text-white hover:bg-indigo-600">Park a vehicle</a>
     </p>
 
     <form asp-action="Index" class="w-full max-w-lg">
-        <div class="space-y-3 flex flex-col md:space-y-0 md:flex-row md:space-x-3">
-            <input type="text" class="p-2 w-full rounded-md border" name="searchField" value="@ViewData["CurrentFilter"]" placeholder="Search..." />
+        <div class="flex flex-col space-y-3 md:space-y-0 md:flex-row md:space-x-3">
+            <input type="text" class="w-full rounded-md border p-2" name="searchField" value="@ViewData["CurrentFilter"]" placeholder="Search..." />
 
-            <select class="p-2 rounded-md border" name="type" value="@ViewData["CurrentType"]">
+            <select class="rounded-md border p-2" name="type" value="@ViewData["CurrentType"]">
                 <option value="1">Registration Number</option>
                 <option value="2">Vehicle Type</option>
                 <option value="3">Color</option>
@@ -23,46 +23,49 @@
                 <option value="5">Model</option>
             </select>
 
-            <button class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600" type="submit" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">Search</button>
+            <button class="rounded bg-gray-700 px-4 py-2 text-white hover:bg-gray-600" type="submit" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">Search</button>
         </div>
     </form>
-    <a asp-action="Index" class="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-600">Back to Full List</a>
+    <div class="mt-12">
+    <a asp-action="Index" class="rounded bg-indigo-700 px-4 py-2 text-white hover:bg-indigo-600">Back to Full List</a>
 
-    <table class="mt-6 bg-white border-gray-200 w-full max-w-4xl rounded-lg border shadow-md">
+    </div>
+
+    <table class="mt-6 w-full max-w-4xl rounded-lg border border-gray-200 bg-white shadow-md">
         <thead>
             <tr class="bg-gray-100">
-                <th class="p-3 border-b text-left">
+                <th class="border-b p-3 text-left">
                     <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["TypeSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                         @Html.DisplayNameFor(model => model.VehicleType)
                     </a>
                 </th>
-                <th class="p-3 border-b text-left">
+                <th class="border-b p-3 text-left">
                     <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["RegNrSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                         @Html.DisplayNameFor(model => model.RegistrationNumber)
                     </a>
                 </th>
-                <th class="p-3 border-b text-left">
+                <th class="border-b p-3 text-left">
                     <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["ArrivalTimeSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                         @Html.DisplayNameFor(model => model.ArrivalTime)
                     </a>
                 </th>
-                <th class="p-3 border-b text-left">
+                <th class="border-b p-3 text-left">
                     <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["ParkedDurationSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
                         @Html.DisplayNameFor(model => model.ParkedDuration)
                     </a>
                 </th>
-                <th class="p-3 border-b"></th>
+                <th class="border-b p-3"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr class="hover:bg-gray-100">
-                    <td class="p-3 border-b">@Html.DisplayFor(modelItem => item.VehicleType)</td>
-                    <td class="p-3 border-b">@Html.DisplayFor(modelItem => item.RegistrationNumber)</td>
-                    <td class="p-3 border-b">@Html.DisplayFor(modelItem => item.ArrivalTime)</td>
-                    <td class="p-3 border-b">@Html.DisplayFor(modelItem => item.ParkedDuration)</td>
-                    <td class="p-3 border-b">
+                    <td class="border-b p-3">@Html.DisplayFor(modelItem => item.VehicleType)</td>
+                    <td class="border-b p-3">@Html.DisplayFor(modelItem => item.RegistrationNumber)</td>
+                    <td class="border-b p-3">@Html.DisplayFor(modelItem => item.ArrivalTime)</td>
+                    <td class="border-b p-3">@Html.DisplayFor(modelItem => item.ParkedDuration)</td>
+                    <td class="border-b p-3">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="text-blue-500 hover:underline">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id" class="text-blue-500 hover:underline">Details</a> |
                         <a asp-action="CheckOut" asp-route-id="@item.Id" class="text-blue-500 hover:underline">Checkout</a>

@@ -16,7 +16,7 @@
         <div class="gap-y-2 flex flex-col">
             <label asp-for="VehicleType" class="text-gray-700 font-medium"></label>
             <span asp-validation-for="VehicleType" class="text-red-500 mb-1 text-sm"></span>
-            <select asp-for="VehicleType" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" asp-items="ViewBag.VehicleTypes"></select>
+            <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleTypes>()" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" asp-items="ViewBag.VehicleTypes"></select>
         </div>
 
         <div class="gap-y-2 flex flex-col">

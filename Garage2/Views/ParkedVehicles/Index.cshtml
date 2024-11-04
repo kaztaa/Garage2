@@ -11,7 +11,7 @@
         <a href="@Url.Action("CheckIn")" class="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-600">Park a vehicle</a>
     </p>
 
-    <form asp-action="Search" class="w-full max-w-lg">
+    <form asp-action="Index" class="w-full max-w-lg">
         <div class="space-y-3 flex flex-col md:space-y-0 md:flex-row md:space-x-3">
             <input type="text" class="p-2 w-full rounded-md border" name="searchField" placeholder="Search..." />
 
@@ -62,9 +62,9 @@
                     <td class="p-3 border-b">@Html.DisplayFor(modelItem => item.ArrivalTime)</td>
                     <td class="p-3 border-b">@Html.DisplayFor(modelItem => item.ParkedDuration)</td>
                     <td class="p-3 border-b">
-                        <a href="@Url.Action("Edit", new { id = item.Id })" class="text-blue-500 hover:underline">Edit</a> |
-                        <a href="@Url.Action("Details", new { id = item.Id })" class="text-blue-500 hover:underline">Details</a> |
-                        <a href="@Url.Action("CheckOut", new { id = item.Id })" class="text-blue-500 hover:underline">Checkout</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="text-blue-500 hover:underline">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="text-blue-500 hover:underline">Details</a> |
+                        <a asp-action="CheckOut" asp-route-id="@item.Id" class="text-blue-500 hover:underline">Checkout</a>
                     </td>
                 </tr>
             }

@@ -1,13 +1,18 @@
-﻿namespace Garage2.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+
+namespace Garage2.Models
 {
-    // ... Add more vehicle types here if we want
-    public enum VehicleTypes
+    public class VehicleTypes
     {
-        Car,
-        Motorcycle,
-        Truck,
-        Bus,
-        Van,
-        Bicycle
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Vehicle type name must be between 2 and 50 characters.")]
+        public string Name { get; set; } = string.Empty;
+
+        // Navigation property for ParkedVehicles
+        public ICollection<ParkedVehicle> ParkedVehicles { get; set; }
     }
 }

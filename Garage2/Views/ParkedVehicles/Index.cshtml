@@ -27,7 +27,7 @@
         </div>
     </form>
     <div class="mt-12">
-    <a asp-action="Index" class="rounded bg-indigo-700 px-4 py-2 text-white hover:bg-indigo-600">Back to Full List</a>
+        <a asp-action="Index" class="rounded bg-indigo-700 px-4 py-2 text-white hover:bg-indigo-600">Back to Full List</a>
 
     </div>
 
@@ -36,7 +36,7 @@
             <tr class="bg-gray-100">
                 <th class="border-b p-3 text-left">
                     <a class="text-gray-700 hover:text-gray-900" asp-action="Index" asp-route-sortBy="@ViewData["TypeSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentType="@ViewData["CurrentType"]">
-                        @Html.DisplayNameFor(model => model.VehicleType)
+                        @Html.DisplayNameFor(model => model.VehicleType.Name)
                     </a>
                 </th>
                 <th class="border-b p-3 text-left">
@@ -61,7 +61,7 @@
             @foreach (var item in Model)
             {
                 <tr class="hover:bg-gray-100">
-                    <td class="border-b p-3">@Html.DisplayFor(modelItem => item.VehicleType)</td>
+                    <td class="border-b p-3">@Html.DisplayFor(modelItem => item.VehicleType.Name)</td>
                     <td class="border-b p-3">@Html.DisplayFor(modelItem => item.RegistrationNumber)</td>
                     <td class="border-b p-3">@Html.DisplayFor(modelItem => item.ArrivalTime)</td>
                     <td class="border-b p-3">@Html.DisplayFor(modelItem => item.ParkedDuration)</td>
@@ -74,5 +74,17 @@
             }
         </tbody>
     </table>
-</div>
 
+    <div class="my-20">
+        <h2 class="mb-4 text-center text-2xl font-bold">Available Parking Spots</h2>
+        <div class="grid-cols-4 grid gap-4">
+            @foreach (var spot in (List<Garage2.Models.ParkingSpot>)ViewData["ParkingSpots"])
+            {
+                <div class="rounded px-5 py-4 text-center text-white @(spot.IsOccupied ? "bg-red-500" : "bg-green-500")">
+                    <p>Spot: @spot.SpotNumber</p>
+                    <p>@(spot.IsOccupied ? "Occupied" : "Available")</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

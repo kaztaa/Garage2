@@ -1,57 +1,63 @@
-﻿@model Garage2.Models.ParkedVehicle
+﻿@model Garage2.Models.ViewModels.ParkedVehicleCheckInViewModel
 
 @{
-    ViewData["Title"] = "Check in";
+    ViewData["Title"] = "Check In";
 }
 
-<div class="my-10 mx-auto max-w-md">
-    <h1 class="mb-6 text-center text-3xl font-bold">Check in</h1>
+<div class="mx-auto my-10 max-w-md">
+    <h1 class="mb-6 text-center text-3xl font-bold">Check In</h1>
 
     <h4 class="text-center text-lg font-semibold">Enter vehicle details to check in</h4>
     <hr class="my-4 border-gray-300" />
 
     <form asp-action="CheckIn" class="space-y-4">
-        <div asp-validation-summary="ModelOnly" class="text-red-500 mb-4 text-center"></div>
+        <div asp-validation-summary="ModelOnly" class="mb-4 text-center text-red-500"></div>
 
-        <div class="gap-y-2 flex flex-col">
-            <label asp-for="VehicleType" class="text-gray-700 font-medium"></label>
-            <span asp-validation-for="VehicleType" class="text-red-500 mb-1 text-sm"></span>
-            <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleTypes>()" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" asp-items="ViewBag.VehicleTypes"></select>
+        <div class="flex flex-col gap-y-2">
+            <label asp-for="VehicleTypesId" class="font-medium text-gray-700"></label>
+            <span asp-validation-for="VehicleTypesId" class="mb-1 text-sm text-red-500"></span>
+            <select asp-for="VehicleTypesId" asp-items="ViewBag.VehicleTypes" class="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline"></select>
         </div>
 
-        <div class="gap-y-2 flex flex-col">
-            <label asp-for="RegistrationNumber" class="text-gray-700 font-medium"></label>
-            <span asp-validation-for="RegistrationNumber" class="text-red-500 mb-1 text-sm"></span>
-            <input asp-for="RegistrationNumber" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" />
+        <div class="flex flex-col gap-y-2">
+            <label asp-for="RegistrationNumber" class="font-medium text-gray-700"></label>
+            <span asp-validation-for="RegistrationNumber" class="mb-1 text-sm text-red-500"></span>
+            <input asp-for="RegistrationNumber" class="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline" />
         </div>
 
-        <div class="gap-y-2 flex flex-col">
-            <label asp-for="Color" class="text-gray-700 font-medium"></label>
-            <span asp-validation-for="Color" class="text-red-500 mb-1 text-sm"></span>
-            <input asp-for="Color" class="py-2 px-3 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" type="color" />
+        <div class="flex flex-col gap-y-2">
+            <label asp-for="Color" class="font-medium text-gray-700"></label>
+            <span asp-validation-for="Color" class="mb-1 text-sm text-red-500"></span>
+            <input asp-for="Color" class="w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none focus:shadow-outline" type="color" />
         </div>
 
-        <div class="gap-y-2 flex flex-col">
-            <label asp-for="Make" class="text-gray-700 font-medium"></label>
-            <span asp-validation-for="Make" class="text-red-500 mb-1 text-sm"></span>
-            <input asp-for="Make" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" />
+        <div class="flex flex-col gap-y-2">
+            <label asp-for="Make" class="font-medium text-gray-700"></label>
+            <span asp-validation-for="Make" class="mb-1 text-sm text-red-500"></span>
+            <input asp-for="Make" class="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline" />
         </div>
 
-        <div class="gap-y-2 flex flex-col">
-            <label asp-for="Model" class="text-gray-700 font-medium"></label>
-            <span asp-validation-for="Model" class="text-red-500 mb-1 text-sm"></span>
-            <input asp-for="Model" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" />
+        <div class="flex flex-col gap-y-2">
+            <label asp-for="Model" class="font-medium text-gray-700"></label>
+            <span asp-validation-for="Model" class="mb-1 text-sm text-red-500"></span>
+            <input asp-for="Model" class="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline" />
         </div>
 
-        <div class="gap-y-2 flex flex-col">
-            <label asp-for="NumberOfWheels" class="text-gray-700 font-medium"></label>
-            <span asp-validation-for="NumberOfWheels" class="text-red-500 mb-1 text-sm"></span>
-            <input asp-for="NumberOfWheels" class="py-2 px-3 text-gray-700 w-full appearance-none rounded border leading-tight shadow focus:outline-none focus:shadow-outline" />
+        <div class="flex flex-col gap-y-2">
+            <label asp-for="NumberOfWheels" class="font-medium text-gray-700"></label>
+            <span asp-validation-for="NumberOfWheels" class="mb-1 text-sm text-red-500"></span>
+            <input asp-for="NumberOfWheels" class="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline" />
         </div>
 
-        <div class="mt-6 pt-7 space-x-4 flex justify-center">
-            <input type="submit" value="Check in" class="bg-indigo-700 text-white px-4 py-2 cursor-pointer rounded hover:bg-indigo-600" />
-            <a asp-action="Index" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">Back to List</a>
+        <div class="flex flex-col gap-y-2">
+            <label asp-for="ParkingSpotId" class="font-medium text-gray-700">Parking Spot</label>
+            <span asp-validation-for="ParkingSpotId" class="mb-1 text-sm text-red-500"></span>
+            <select asp-for="ParkingSpotId" class="w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline" asp-items="ViewBag.ParkingSpots"></select>
+        </div>
+
+        <div class="mt-6 flex justify-center space-x-4 pt-7">
+            <input type="submit" value="Check In" class="cursor-pointer rounded bg-indigo-700 px-4 py-2 text-white hover:bg-indigo-600" />
+            <a asp-action="Index" class="rounded bg-gray-700 px-4 py-2 text-white hover:bg-gray-800">Back to List</a>
         </div>
     </form>
 </div>
